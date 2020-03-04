@@ -101,7 +101,7 @@ UserSchema.methods.resendEmailConfirm = async function() {
   }
 };
 
-// set password change time
+//set password change time
 UserSchema.pre('save', function(next) {
   if (!this.isModified('password') || this.isNew) return next();
   this.passwordChangeAt = Date.now() - 1000;

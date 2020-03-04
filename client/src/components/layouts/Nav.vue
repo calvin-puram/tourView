@@ -1,6 +1,16 @@
 <template>
   <div>
     <v-navigation-drawer v-model="drawer" app>
+      <p
+        class="text-center mobile-confirmaccount "
+        v-if="auth && !confirmEmailSent"
+      >
+        Please confirm your account or
+        <span class="ml-3 resendMail" @click="confirmMailMoblie">
+          {{ loading ? 'Sending Mail...' : 'Resend Mail' }}
+        </span>
+      </p>
+
       <v-list dense>
         <v-list-item link>
           <v-list-item-action>
@@ -26,6 +36,12 @@
       <router-link class="hidden-xs-only ml-5" to="/">
         <v-img src="/img/logo-green.png" width="140px"></v-img>
       </router-link>
+      <h6 class="text-center confirmAccount" v-if="auth && !confirmEmailSent">
+        Please confirm your account
+        <span class="ml-2 resendMail" @click="confirmMail">
+          {{ loading ? 'Sending Mail...' : 'Resend Mail?' }}
+        </span>
+      </h6>
       <v-spacer></v-spacer>
       <!-- MENU -->
       <div class="text-center mr-5 ">
@@ -57,7 +73,10 @@
         <div v-if="auth">
           <router-link to="/profile">
             <v-avatar class="mr-5">
-              <img :src="`img/img/users/${setUser.photo}`" alt="user" />
+              <img
+                :src="`http://localhost:8000/img/users/${setUser.photo}`"
+                alt="user"
+              />
             </v-avatar>
           </router-link>
         </div>
@@ -75,7 +94,11 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex';
+import formMixin from '@mixins/formMixin.js';
 export default {
+  computed: mapGetters(['getErrors']),
+  mixins: [formMixin],
   props: {
     source: String
   },
@@ -87,6 +110,72 @@ export default {
       { title: 'Register', route: '/register' }
     ]
   }),
-  methods: {}
+  methods: {
+    ...mapActions(['resendEmail']),
+    confirmMail() {
+      this.toggleLoading();
+      this.resendEmail().then(res => {
+        if (res && res.data.success) {
+          this.toggleLoading();
+          this.$noty.success('Email sent successfully!');
+        } else {
+          this.toggleLoading();
+          this.$noty.error(this.getErrors);
+        }
+      });
+    },
+
+    confirmMailMoblie() {
+      this.toggleLoading();
+      this.resendEmail().then(res => {
+        if (res && res.data.success) {
+          this.toggleLoading();
+          this.$noty.success('Email sent successfully!');
+        } else {
+          this.toggleLoading();
+          this.$noty.error(this.getErrors);
+        }
+      });
+    }
+  }
 };
 </script>
+
+<style scoped>
+.confirmAccount {
+  margin-left: 15rem;
+  margin-top: 1rem;
+}
+.resendMail {
+  cursor: pointer;
+  border-bottom: 1px solid rgb(179, 177, 177);
+  letter-spacing: 1.3px;
+}
+.resendMail:hover {
+  color: #444242;
+  border: none;
+}
+
+.mobile-confirmaccount {
+  display: none;
+}
+
+@media screen and (max-width: 768px) {
+  .confirmAccount {
+    display: none;
+  }
+  .mobile-confirmaccount {
+    display: block;
+    margin-top: 1rem;
+    font-size: 14px;
+    color: #009432;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .confirmAccount {
+    margin-left: 3rem;
+    margin-top: 1rem;
+  }
+}
+</style>

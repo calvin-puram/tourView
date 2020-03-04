@@ -10,7 +10,7 @@ router.post('/login', auth.login);
 
 router.post('/forgotPassword', auth.forgotPassword);
 router.patch('/resetPassword', auth.resetPassword);
-router.patch('/confirmAccount', auth.confirmAccount);
+router.post('/confirmAccount', auth.confirmAccount);
 
 router.use(auth.protect);
 

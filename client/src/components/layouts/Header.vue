@@ -54,4 +54,10 @@ export default {
   font-weight: normal;
   font-family: 'IBM Plex Serif', Arial;
 }
+
+@media screen and (max-width: 768px) {
+  h1.showcase-heading {
+    display: none;
+  }
+}
 </style>

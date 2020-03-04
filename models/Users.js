@@ -73,11 +73,9 @@ UserSchema.pre('save', async function(next) {
 // generate emailConfirmToken
 UserSchema.pre('save', function(next) {
   this.wasNew = this.isNew;
+  if (!this.isNew) return next();
   const token = crypto.randomBytes(32).toString('hex');
-  this.emailConfirmCode = crypto
-    .createHash('sha256')
-    .update(token)
-    .digest('hex');
+  this.emailConfirmCode = token;
   next();
 });
 

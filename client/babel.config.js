@@ -6,7 +6,8 @@ module.exports = {
       {
         root: ['./'],
         alias: {
-          '@mixins': './src/components/mixins'
+          '@mixins': './src/components/mixins',
+          '@views': './src/views'
         }
       }
     ]

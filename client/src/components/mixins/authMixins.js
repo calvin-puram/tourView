@@ -9,13 +9,18 @@ export default {
     },
     setUser() {
       return this.getUsers;
+    },
+    confirmEmailSent() {
+      return !!this.getUsers.emailConfirmAt;
     }
   },
   methods: {
     ...mapActions(['logoutUser']),
     setAuth(payload) {
       localStorage.setItem('auth', JSON.stringify(payload));
-      axios.defaults.headers.common['Authorization'] = payload;
+      axios.defaults.headers.common[
+        'Authorization'
+      ] = `Bearer ${payload.token}`;
       this.$router.push('/');
     },
     logout() {

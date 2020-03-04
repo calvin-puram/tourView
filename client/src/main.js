@@ -10,8 +10,10 @@ import authMixin from '@mixins/authMixins';
 Vue.config.productionTip = false;
 Vue.prototype.$http = axios;
 Vue.mixin(authMixin);
-const token = JSON.parse(localStorage.getItem('auth')) || null;
-Vue.prototype.$http.defaults.headers.common['Authorization'] = token;
+const token = JSON.parse(localStorage.getItem('auth')) || '';
+Vue.prototype.$http.defaults.headers.common[
+  'Authorization'
+] = `Bearer ${token.token}`;
 Vue.use(VueNoty);
 import 'vuejs-noty/dist/vuejs-noty.css';
 

@@ -160,26 +160,21 @@ exports.resetPassword = catchAsync(async (req, res, next) => {
   });
 });
 
-//@desc   update Password
+//@desc   Confirm Account
 //@route  PATCH api/v1/users/confirmAccount
 //@access public
 exports.confirmAccount = catchAsync(async (req, res, next) => {
   const { token } = req.body;
 
-  const currentUser = await Users.findOne({ emailConfirmCode: token });
+  const user = await Users.findOne({ emailConfirmCode: token });
 
-  if (!currentUser) {
+  if (!user) {
     return next(new AppError('Invalid Credentials', 400));
   }
 
-  const user = await Users.findByIdAndUpdate(
-    { _id: currentUser._id },
-    {
-      emailConfirmCode: null,
-      emailConfirmAt: new Date()
-    },
-    { new: true }
-  );
+  user.emailConfirmCode = null;
+  user.emailConfirmAt = Date.now();
+  await user.save({ validateBeforeSave: false });
 
   sendToken(user, res, 200);
 });

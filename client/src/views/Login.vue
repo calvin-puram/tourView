@@ -33,7 +33,7 @@
               {{ loading ? '' : 'Login' }}
             </v-btn>
 
-            <router-link to="/register">Forgot Password?</router-link>
+            <router-link to="/forgot/password">Forgot Password?</router-link>
           </div>
         </v-form>
       </div>

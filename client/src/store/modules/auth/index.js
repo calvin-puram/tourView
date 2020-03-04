@@ -38,6 +38,40 @@ const actions = {
       );
       if (res && res.data.success) {
         commit('auth_response', res.data);
+      }
+      return res;
+    } catch (err) {
+      commit('login_error', err.response.data.msg);
+    }
+  },
+  //logout
+  logoutUser({ commit }) {
+    commit('logout');
+  },
+  //forgot password
+  async forgotPassword({ commit }, dataa) {
+    try {
+      const res = await axios.post(
+        'http://localhost:8000/api/v1/users/forgotPassword',
+        dataa
+      );
+      if (res && res.data.success) {
+        commit('auth_response', res.data);
+      }
+      return res;
+    } catch (err) {
+      commit('login_error', err.response.data.msg);
+    }
+  },
+  //reset password
+  async resetPassword({ commit }, dataa) {
+    try {
+      const res = await axios.patch(
+        'http://localhost:8000/api/v1/users/resetPassword',
+        dataa
+      );
+      if (res && res.data.success) {
+        commit('auth_response', res.data);
         console.log(res.data);
       }
       return res;
@@ -45,10 +79,6 @@ const actions = {
       console.log(err.response.data.msg);
       commit('login_error', err.response.data.msg);
     }
-  },
-  //logout
-  logoutUser({ commit }) {
-    commit('logout');
   }
 };
 

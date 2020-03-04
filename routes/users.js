@@ -9,7 +9,7 @@ router.post('/signup', auth.signup);
 router.post('/login', auth.login);
 
 router.post('/forgotPassword', auth.forgotPassword);
-router.patch('/resetPassword/:token', auth.resetPassword);
+router.patch('/resetPassword', auth.resetPassword);
 router.patch('/confirmAccount', auth.confirmAccount);
 
 router.use(auth.protect);

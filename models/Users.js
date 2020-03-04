@@ -20,7 +20,10 @@ const UserSchema = new Schema({
     required: [true, 'email is required'],
     validate: [validator.isEmail, 'Invalid email. Try again']
   },
-  photo: String,
+  photo: {
+    type: String,
+    default: 'default.jpg'
+  },
   password: {
     type: String,
     required: [true, 'password is required'],

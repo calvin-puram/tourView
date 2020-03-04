@@ -135,7 +135,7 @@ exports.forgotPassword = catchAsync(async (req, res, next) => {
 exports.resetPassword = catchAsync(async (req, res, next) => {
   const hashedToken = crypto
     .createHash('sha256')
-    .update(req.params.token)
+    .update(req.body.token)
     .digest('hex');
 
   const user = await Users.findOne({
@@ -144,7 +144,7 @@ exports.resetPassword = catchAsync(async (req, res, next) => {
   });
 
   if (!user) {
-    return next(new AppError('Invalid Credentials', 401));
+    return next(new AppError('Invalid Credentials or Expired Token', 401));
   }
 
   user.password = req.body.password;
@@ -153,7 +153,11 @@ exports.resetPassword = catchAsync(async (req, res, next) => {
   user.passwordResetExpires = undefined;
   await user.save();
 
-  sendToken(user, res, 200);
+  // sendToken(user, res, 200);
+  res.status(200).json({
+    success: true,
+    message: 'password reset successfully!'
+  });
 });
 
 //@desc   update Password

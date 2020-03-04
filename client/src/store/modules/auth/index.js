@@ -8,10 +8,12 @@ const initState = {
 const state = JSON.parse(localStorage.getItem('auth')) || initState;
 
 const getters = {
-  getErrors: () => state.errors
+  getErrors: () => state.errors,
+  getUsers: () => state.user
 };
 
 const actions = {
+  //register
   async register({ commit }, dataa) {
     try {
       const res = await axios.post(
@@ -43,6 +45,10 @@ const actions = {
       console.log(err.response.data.msg);
       commit('login_error', err.response.data.msg);
     }
+  },
+  //logout
+  logoutUser({ commit }) {
+    commit('logout');
   }
 };
 
@@ -56,8 +62,14 @@ const mutations = {
   auth_error(state, err) {
     state.errors = err;
   },
+
   login_error(state, err) {
     state.errors = err;
+  },
+  logout(state) {
+    state.token = null;
+    state.user = null;
+    state.errors = null;
   }
 };
 

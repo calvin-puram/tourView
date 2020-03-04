@@ -63,11 +63,11 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
-import axios from 'axios';
+import formMixin from '@mixins/formMixin.js';
 
 export default {
   computed: mapGetters(['getErrors']),
-
+  mixins: [formMixin],
   data: () => ({
     model: {
       name: '',
@@ -76,7 +76,6 @@ export default {
       passwordConfirm: ''
     },
     valid: true,
-    loading: false,
     nameRules: [
       v => !!v || 'Name is required',
       v => (v && v.length <= 20) || 'Name must be less than 20 characters'
@@ -97,9 +96,6 @@ export default {
   }),
   methods: {
     ...mapActions(['register']),
-    toggleLoading() {
-      this.loading = !this.loading;
-    },
     handleRegister() {
       if (this.$refs.form.validate()) {
         this.toggleLoading();
@@ -107,10 +103,8 @@ export default {
         this.register(this.model).then(res => {
           this.toggleLoading();
           if (res && res.data.success) {
-            localStorage.setItem('auth', JSON.stringify(res.data));
-            axios.defaults.headers.common['Authorization'] = res.data;
+            this.setAuth(res.data);
             this.$noty.success('Your profile has been saved!');
-            this.$router.push('/');
           } else {
             this.$noty.error(this.getErrors);
           }

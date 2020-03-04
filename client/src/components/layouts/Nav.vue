@@ -29,7 +29,7 @@
       <v-spacer></v-spacer>
       <!-- MENU -->
       <div class="text-center mr-5 ">
-        <v-menu open-on-hover buttom offset-y>
+        <v-menu open-on-hover buttom offset-y v-if="auth">
           <template v-slot:activator="{ on }">
             <v-btn
               color="white"
@@ -42,41 +42,34 @@
           </template>
 
           <v-list class="mt-1 text-center">
-            <v-list-item
-              v-for="(item, index) in items"
-              :key="index"
-              link
-              :to="item.route"
-            >
-              <v-list-item-title>{{ item.title }}</v-list-item-title>
+            <v-list-item link to="/profile">
+              <v-list-item-title>Profile</v-list-item-title>
+            </v-list-item>
+            <v-list-item @click="logout">
+              <v-list-item-title>Logout</v-list-item-title>
             </v-list-item>
           </v-list>
         </v-menu>
       </div>
 
       <!-- PROFILE -->
-      <v-menu
-        v-model="showMenu"
-        open-on-hover
-        buttom
-        offset-y
-        style="max-width: 300px"
-      >
-        <template v-slot:activator="{ on }">
-          <v-avatar v-on="on" class="mr-5">
-            <img src="https://cdn.vuetifyjs.com/images/john.jpg" alt="user" />
-          </v-avatar>
-        </template>
-
-        <v-list>
-          <v-list-item link class="py-0" to="">
-            <v-list-item-title>Profile</v-list-item-title>
-          </v-list-item>
-          <v-list-item link class="py-0">
-            <v-list-item-title>Logout</v-list-item-title>
-          </v-list-item>
-        </v-list>
-      </v-menu>
+      <template>
+        <div v-if="auth">
+          <router-link to="/profile">
+            <v-avatar class="mr-5">
+              <img :src="`img/img/users/${setUser.photo}`" alt="user" />
+            </v-avatar>
+          </router-link>
+        </div>
+        <div v-else class="d-flex justify-content-between align-items-center">
+          <router-link to="/login">
+            <v-btn class="white" light rounded>Login</v-btn>
+          </router-link>
+          <router-link to="/register" class="ml-5">
+            <v-btn class="white" light rounded>Register</v-btn>
+          </router-link>
+        </div>
+      </template>
     </v-app-bar>
   </div>
 </template>
@@ -90,7 +83,7 @@ export default {
     drawer: false,
     showMenu: false,
     items: [
-      { title: 'Login', route: '/login' },
+      { title: 'Profile', route: '/profile' },
       { title: 'Register', route: '/register' }
     ]
   }),

@@ -43,16 +43,17 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
-import axios from 'axios';
+import formMixin from '@mixins/formMixin.js';
+
 export default {
   computed: mapGetters(['getErrors']),
+  mixins: [formMixin],
   data: () => ({
     model: {
       email: '',
       password: ''
     },
     valid: true,
-    loading: false,
     show1: false,
     rules: {
       required: value => !!value || 'Required.',
@@ -68,9 +69,6 @@ export default {
 
   methods: {
     ...mapActions(['login']),
-    toggleLoading() {
-      this.loading = !this.loading;
-    },
     handleLogin() {
       if (this.$refs.form.validate()) {
         this.toggleLoading();
@@ -79,10 +77,8 @@ export default {
         this.login(this.model).then(res => {
           this.toggleLoading();
           if (res && res.data.success) {
-            localStorage.setItem('auth', JSON.stringify(res.data));
-            axios.defaults.headers.common['Authorization'] = res.data;
+            this.setAuth(res.data);
             this.$noty.success("You're logged In successfully!");
-            this.$router.push('/');
           } else {
             this.$noty.error(this.getErrors);
           }

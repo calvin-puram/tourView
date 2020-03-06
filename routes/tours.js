@@ -35,7 +35,7 @@ router
   );
 
 router
-  .route('/:id')
+  .route('/:slug')
   .get(toursController.getOneTour)
   .patch(
     auth.protect,

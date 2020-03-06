@@ -53,7 +53,7 @@ exports.createHandler = model =>
 //@desc   Get Single Resource
 exports.getSingleHandler = (model, populate) =>
   catchAsync(async (req, res, next) => {
-    let query = model.findById(req.params.id);
+    let query = model.findOne({ slug: req.params.slug });
 
     if (populate) {
       query = query.populate(populate);
@@ -62,7 +62,7 @@ exports.getSingleHandler = (model, populate) =>
 
     if (!doc) {
       return next(
-        new AppError(`No Resource Found With id: ${req.params.id}`, 404)
+        new AppError(`No Resource Found With slug: ${req.params.slug}`, 404)
       );
     }
 

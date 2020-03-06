@@ -1,15 +1,35 @@
 <template>
   <div>
-    <Header />
+    <div v-if="getLoading">
+      <Spinner />
+    </div>
+    <div>
+      <div v-if="!getLoading"><Header /></div>
+
+      <Card />
+    </div>
   </div>
 </template>
 
 <script>
-import Header from '../components/layouts/Header';
+import { mapGetters, mapActions } from 'vuex';
+import Header from '@layouts/Header';
+import Card from '@tourUtils/Card';
+import Spinner from '@tourUtils/Spinner';
+
 export default {
-  name: 'Home',
+  computed: mapGetters(['getLoading']),
   components: {
+    Card,
+    Spinner,
     Header
+  },
+  name: 'Home',
+  methods: {
+    ...mapActions(['tours'])
+  },
+  created() {
+    this.tours();
   }
 };
 </script>

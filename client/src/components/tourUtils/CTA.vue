@@ -1,0 +1,121 @@
+<template>
+  <div class="main_wrapper">
+    <div
+      class="py-5 bg-light c2a1 wrapper"
+      style="background:linear-gradient(rgba(0,0,0,.2), rgba(0,0,0, .2)), url('/img/showcase/tour-1-1.jpg')"
+    >
+      <div class="container">
+        <!-- Row -->
+        <div class="row justify-content-center">
+          <div class="col-md-7 text-center">
+            <h2 class="mb-3 text-white font-weight-medium">
+              WHAT ARE YOU WAITING FOR?
+            </h2>
+            <p class="font-weight-light text-white op-8">
+              {{ getOneTour.duration }} days. 1 adventure. Infinite memories.
+              Make it yours today!
+            </p>
+            <a
+              class="btn btn-danger-gradiant btn-md border-0 text-white mt-3 text-uppercase"
+              href="#"
+              ><span>{{
+                auth ? 'Book Tour Now!' : 'Log In to Book Your Tour'
+              }}</span></a
+            >
+          </div>
+        </div>
+        <!-- Row -->
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+import { mapGetters } from 'vuex';
+export default {
+  computed: mapGetters(['getOneTour'])
+};
+</script>
+
+<style scoped>
+.c2a1 {
+  font-family: 'Montserrat', sans-serif;
+  color: #8d97ad;
+  font-weight: 300;
+  background-position: center top;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+.c2a1 h1,
+.c2a1 h2,
+.c2a1 h3,
+.c2a1 h4,
+.c2a1 h5,
+.c2a1 h6 {
+  color: #3e4555;
+}
+
+.c2a1 .op-8 {
+  opacity: 0.8;
+}
+
+.c2a1 .font-weight-medium {
+  font-weight: 500;
+}
+
+.c2a1 .btn-danger-gradiant {
+  background: #ff4d7e;
+  background: -webkit-linear-gradient(
+    legacy-direction(to right),
+    #ff4d7e 0%,
+    #ff6a5b 100%
+  );
+  background: -webkit-gradient(
+    linear,
+    left top,
+    right top,
+    from(#ff4d7e),
+    to(#ff6a5b)
+  );
+  background: -webkit-linear-gradient(left, #ff4d7e 0%, #ff6a5b 100%);
+  background: -o-linear-gradient(left, #ff4d7e 0%, #ff6a5b 100%);
+  background: linear-gradient(to right, #ff4d7e 0%, #ff6a5b 100%);
+}
+
+.c2a1 .btn-danger-gradiant:hover {
+  background: #ff6a5b;
+  background: -webkit-linear-gradient(
+    legacy-direction(to right),
+    #ff6a5b 0%,
+    #ff4d7e 100%
+  );
+  background: -webkit-gradient(
+    linear,
+    left top,
+    right top,
+    from(#ff6a5b),
+    to(#ff4d7e)
+  );
+  background: -webkit-linear-gradient(left, #ff6a5b 0%, #ff4d7e 100%);
+  background: -o-linear-gradient(left, #ff6a5b 0%, #ff4d7e 100%);
+  background: linear-gradient(to right, #ff6a5b 0%, #ff4d7e 100%);
+}
+
+.c2a1 .btn-md {
+  padding: 15px 45px;
+  font-size: 16px;
+}
+
+.wrapper {
+  height: 60vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 100vh;
+}
+
+.main_wrapper {
+  margin-bottom: 30px;
+}
+</style>

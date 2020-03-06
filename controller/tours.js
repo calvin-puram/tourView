@@ -23,7 +23,7 @@ exports.getTours = factory.getHandler(Tours);
 //@access public
 exports.getOneTour = factory.getSingleHandler(Tours, {
   path: 'reviews',
-  select: 'name photo'
+  select: 'name photo, review'
 });
 //@desc   Create Tours
 //@route  POST api/v1/tours/

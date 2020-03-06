@@ -6,6 +6,7 @@ import Register from '@views/Register.vue';
 import ForgotPassword from '@views/ForgotPassword.vue';
 import ResetPassword from '@views/ResetPassword.vue';
 import ConfirmPassword from '@views/ConfirmPassword.vue';
+import Tours from '@views/Tour.vue';
 
 Vue.use(VueRouter);
 
@@ -13,6 +14,10 @@ const routes = [
   {
     path: '/',
     component: Home
+  },
+  {
+    path: '/tour/:slug',
+    component: Tours
   },
   {
     path: '/login',

@@ -48,12 +48,12 @@
       <div class="col-lg-9 col-xs-12">
         <!-- MAIN CONTAINER -->
         <div class="main_profile">
-          <h2 class="text-center headline">YOUR ACCOUNT SETTINGS</h2>
+          <h2 class="text-center headline mt-5">YOUR ACCOUNT SETTINGS</h2>
 
           <v-form ref="formm" v-model="valid">
             <v-text-field
               v-model="name"
-              :counter="10"
+              :counter="20"
               :rules="nameRules"
               label="Name"
               required
@@ -76,7 +76,7 @@
               <p class="ml-5">Choose new Photo</p>
             </div>
 
-            <v-btn color="success" class="mr-4 float-right">
+            <v-btn color="success" class="mr-4 float-right" @click="updateUser">
               SAVE SETTINGS
             </v-btn>
           </v-form>
@@ -122,7 +122,12 @@
               @click:append="show3 = !show3"
             ></v-text-field>
 
-            <v-btn :disabled="!valid" color="success" class="mr-4 float-right">
+            <v-btn
+              :disabled="!valid"
+              color="success"
+              class="mr-4 mb-6 float-right"
+              @click="updatePassword"
+            >
               SAVE PASSWORD
             </v-btn>
           </v-form>
@@ -154,7 +159,7 @@ export default {
     name: '',
     nameRules: [
       v => !!v || 'Name is required',
-      v => (v && v.length <= 10) || 'Name must be less than 10 characters'
+      v => (v && v.length <= 20) || 'Name must be less than 20 characters'
     ],
     email: '',
     emailRules: [
@@ -174,12 +179,52 @@ export default {
     show3: false
   }),
   methods: {
-    ...mapActions(['myProfile'])
+    ...mapActions(['myProfile', 'profileDetails', 'updateProfilePassword']),
+    // UPDATE USER DETAILS ACTION
+    updateUser() {
+      if (this.$refs.formm.validate()) {
+        this.snackbar = true;
+        const user = {
+          name: this.name,
+          email: this.email
+        };
+        this.profileDetails(user).then(res => {
+          if (res && res.data.success) {
+            this.$noty.success('Profile Details Updated successfully!');
+          } else {
+            this.$noty.error(this.getProfileErrors);
+          }
+        });
+      }
+    },
+    // UPDATE PASSWORD ACTION
+    updatePassword() {
+      if (this.$refs.form.validate()) {
+        this.snackbar = true;
+        const user = {
+          currentPassword: this.currentPassword,
+          newPassword: this.newPassword,
+          passwordConfirm: this.confirmPassword
+        };
+
+        this.updateProfilePassword(user).then(res => {
+          if (res && res.data.success) {
+            this.$noty.success('Password Updated successfully!');
+          } else {
+            this.$noty.error(this.getProfileErrors);
+          }
+        });
+      }
+    }
   },
+
   created() {
-    this.name = this.getProfile.name;
-    this.email = this.getProfile.email;
-    this.myProfile();
+    this.myProfile().then(res => {
+      if (res && res.data.success) {
+        this.name = this.getProfile.name;
+        this.email = this.getProfile.email;
+      }
+    });
   }
 };
 </script>

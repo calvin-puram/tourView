@@ -177,9 +177,9 @@ export default {
     ...mapActions(['myProfile'])
   },
   created() {
-    this.myProfile();
     this.name = this.getProfile.name;
     this.email = this.getProfile.email;
+    this.myProfile();
   }
 };
 </script>

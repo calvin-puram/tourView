@@ -4,18 +4,14 @@
       <div class="col-lg-3  col-xs-12">
         <div class="profile__sidebar ">
           <div>
-            <v-list color="#009432" dark>
-              <v-list-item-group
-                v-model="item"
-                color="#fff"
-                class="white--text"
-              >
+            <v-list color="#f4f4f4" light flat>
+              <v-list-item-group v-model="item" color="#333">
                 <v-list-item v-for="(item, i) in items" :key="i">
                   <v-list-item-icon>
-                    <v-icon v-text="item.icon"></v-icon>
+                    <v-icon>{{ item.icon }}</v-icon>
                   </v-list-item-icon>
                   <v-list-item-content>
-                    <v-list-item-title v-text="item.text"></v-list-item-title>
+                    <v-list-item-title>{{ item.text }}</v-list-item-title>
                   </v-list-item-content>
                 </v-list-item>
               </v-list-item-group>
@@ -24,14 +20,10 @@
           <!-- ADMIN -->
 
           <div>
-            <v-list color="#009432" dark>
+            <v-list color="#f4f4f4" light flat>
               <v-subheader>ADMIN</v-subheader>
               <v-divider></v-divider>
-              <v-list-item-group
-                v-model="item"
-                color="#fff"
-                class="white--text"
-              >
+              <v-list-item-group v-model="item" color="#333">
                 <v-list-item v-for="(item, i) in admin" :key="i">
                   <v-list-item-icon>
                     <v-icon v-text="item.icon"></v-icon>
@@ -231,7 +223,7 @@ export default {
 
 <style scoped>
 .profile__sidebar {
-  background: #009432;
+  background: #f4f4f4;
   height: 100vh;
 }
 .main_profile {

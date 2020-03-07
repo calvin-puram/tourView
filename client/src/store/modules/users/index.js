@@ -12,9 +12,10 @@ const actions = {
   async myProfile({ commit }) {
     try {
       const res = await axios.get(
-        'http://localhost:8000/api/v1/users//myprofile'
+        'http://localhost:8000/api/v1/users/myprofile'
       );
       if (res && res.data.success) {
+        console.log(res.data);
         commit('users_response', res.data.data);
       }
       return res;

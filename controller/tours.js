@@ -21,9 +21,22 @@ exports.getTours = factory.getHandler(Tours);
 //@desc   Get Single Tours
 //@route  Get api/v1/tours/:id
 //@access public
-exports.getOneTour = factory.getSingleHandler(Tours, {
-  path: 'reviews',
-  select: 'name photo, review'
+exports.getOneTour = catchAsync(async (req, res, next) => {
+  const tour = await Tours.findOne({ slug: req.params.slug }).populate({
+    path: 'reviews',
+    select: 'name photo, review'
+  });
+
+  if (!tour) {
+    return next(
+      new AppError(`No Resource Found With slug: ${req.params.slug}`, 404)
+    );
+  }
+
+  res.status(200).json({
+    success: true,
+    data: tour
+  });
 });
 //@desc   Create Tours
 //@route  POST api/v1/tours/

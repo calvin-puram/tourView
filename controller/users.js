@@ -46,6 +46,7 @@ exports.deleteMe = catchAsync(async (req, res, next) => {
 //@access private
 exports.myprofile = catchAsync(async (req, res, next) => {
   req.params.id = req.user.id;
+
   next();
 });
 

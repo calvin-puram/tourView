@@ -175,48 +175,11 @@ export default {
   }),
   methods: {
     ...mapActions(['myProfile'])
-    // UPDATE USER DETAILS ACTION
-    // updateUser() {
-    //   if (this.$refs.formm.validate()) {
-    //     this.snackbar = true;
-    //     const user = {
-    //       name: this.name,
-    //       email: this.email
-    //     };
-    //     this.updateNewUser(user).then(res => {
-    //       if (res && res.data.success) {
-    //         this.$noty.success('Profile Details Updated successfully!');
-    //       } else {
-    //         this.$noty.error(this.getUserErrors);
-    //       }
-    //     });
-    //   }
-    // },
-
-    // UPDATE PASSWORD ACTION
-    // updatePassword() {
-    //   if (this.$refs.form.validate()) {
-    //     this.snackbar = true;
-    //     const user = {
-    //       currentPassword: this.currentPassword,
-    //       newPassword: this.newPassword,
-    //       passwordConfirm: this.confirmPassword
-    //     };
-
-    //     this.updateUserPassword(user).then(res => {
-    //       if (res && res.data.success) {
-    //         this.$noty.success('Password Updated successfully!');
-    //       } else {
-    //         this.$noty.error(this.getUserErrors);
-    //       }
-    //     });
-    //   }
-    // }
   },
   created() {
-    this.name = this.getUser.name;
-    this.email = this.getUser.email;
     this.myProfile();
+    this.name = this.getProfile.name;
+    this.email = this.getProfile.email;
   }
 };
 </script>

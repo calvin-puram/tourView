@@ -7,8 +7,9 @@ const factory = require('./factoryHandler');
 //@route  Patch api/v1/users/
 //@access private
 exports.updateMe = catchAsync(async (req, res, next) => {
-  const { email, name } = req.body;
-
+  const { email, name, photo } = req.body;
+  console.log(req.file);
+  console.log(req.body);
   if (req.body.password) {
     return next(
       new AppError('you can only update email and name in this route', 401)
@@ -17,7 +18,7 @@ exports.updateMe = catchAsync(async (req, res, next) => {
 
   const user = await Users.findByIdAndUpdate(
     req.user.id,
-    { email, name },
+    { email, name, photo },
     {
       new: true,
       runValidators: true

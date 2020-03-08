@@ -32,23 +32,20 @@ exports.userUpdatePhoto = upload.single('photo');
 //@route  Patch api/v1/users/
 //@access private
 exports.updateMe = catchAsync(async (req, res, next) => {
-  const { email, name, photo } = req.body;
-  console.log(path.parse(req.file.originalname).ext);
-  // console.log(req.body);
+  if (req.file) {
+    req.body.photo = req.file.filename;
+  }
+
   if (req.body.password) {
     return next(
       new AppError('you can only update email and name in this route', 401)
     );
   }
 
-  const user = await Users.findByIdAndUpdate(
-    req.user.id,
-    { email, name, photo },
-    {
-      new: true,
-      runValidators: true
-    }
-  );
+  const user = await Users.findByIdAndUpdate(req.user.id, req.body, {
+    new: true,
+    runValidators: true
+  });
 
   res.status(200).json({
     success: true,

@@ -8,6 +8,7 @@ import ResetPassword from '@views/ResetPassword.vue';
 import ConfirmPassword from '@views/ConfirmPassword.vue';
 import Tours from '@views/Tour.vue';
 import Profile from '@views/Profile.vue';
+import store from '../store/index';
 
 Vue.use(VueRouter);
 
@@ -22,27 +23,33 @@ const routes = [
   },
   {
     path: '/profile',
-    component: Profile
+    component: Profile,
+    meta: { requiresAuth: true }
   },
   {
     path: '/login',
-    component: Login
+    component: Login,
+    meta: { requiresGuest: true }
   },
   {
     path: '/register',
-    component: Register
+    component: Register,
+    meta: { requiresGuest: true }
   },
   {
     path: '/forgot/password',
-    component: ForgotPassword
+    component: ForgotPassword,
+    meta: { requiresGuest: true }
   },
   {
     path: '/reset/password/:token',
-    component: ResetPassword
+    component: ResetPassword,
+    meta: { requiresGuest: true }
   },
   {
     path: '/email/confirm/:token',
-    component: ConfirmPassword
+    component: ConfirmPassword,
+    meta: { requiresAuth: true }
   }
 ];
 
@@ -50,6 +57,24 @@ const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes
+});
+
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    if (!store.getters.isLoggedIn) {
+      next('/login');
+    } else {
+      next();
+    }
+  } else if (to.matched.some(record => record.meta.requiresGuest)) {
+    if (store.getters.isLoggedIn) {
+      next('/profile');
+    } else {
+      next();
+    }
+  } else {
+    next();
+  }
 });
 
 export default router;

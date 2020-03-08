@@ -9,7 +9,8 @@ const state = JSON.parse(localStorage.getItem('auth')) || initState;
 
 const getters = {
   getErrors: () => state.errors,
-  getUsers: () => state.user
+  getUsers: () => state.user,
+  isLoggedIn: () => !!state.token
 };
 
 const actions = {

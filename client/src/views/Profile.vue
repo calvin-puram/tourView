@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="auth">
     <div class="row">
       <div class="col-lg-3  col-xs-12">
         <div class="profile__sidebar ">

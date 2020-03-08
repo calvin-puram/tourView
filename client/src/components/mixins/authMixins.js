@@ -27,6 +27,9 @@ export default {
       localStorage.removeItem('auth');
       delete axios.defaults.headers.common['Authorization'];
       this.logoutUser();
+      if (this.$route.path !== '/') {
+        this.$router.push('/');
+      }
     }
   }
 };

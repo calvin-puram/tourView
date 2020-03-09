@@ -34,12 +34,14 @@ router
     toursController.createTours
   );
 
+router.route('/:slug').get(toursController.getOneTour);
 router
-  .route('/:slug')
-  .get(toursController.getOneTour)
+  .route('/:id')
   .patch(
     auth.protect,
     auth.restrictTo('lead-guide', 'admin'),
+    toursController.uploadTourImages,
+    toursController.checkFile,
     toursController.updateTour
   )
   .delete(

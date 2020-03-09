@@ -19,7 +19,12 @@ router.patch('/updatePassword', auth.updatePassword);
 router.patch('/updateMe', auth.updateMe);
 router.delete('/deleteMe', userController.deleteMe);
 router.get('/myprofile', userController.myprofile, userController.getOneUser);
-router.patch('/updatePhotos', auth.userUpdatePhoto, auth.updatePhotos);
+router.patch(
+  '/updatePhotos',
+  auth.userUpdatePhoto,
+  auth.resizeImage,
+  auth.updatePhotos
+);
 
 router.use(auth.restrictTo('admin'));
 

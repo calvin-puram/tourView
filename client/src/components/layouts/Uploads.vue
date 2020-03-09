@@ -1,6 +1,6 @@
 <template>
   <div class="d-flex justify-content-center align-items-center text-center">
-    <v-avatar width="70px">
+    <v-avatar>
       <img
         :src="`http://localhost:8000/img/users/${setUser.photo}`"
         alt="user"
@@ -8,12 +8,7 @@
     </v-avatar>
     <v-dialog v-model="dialog" width="600px">
       <template v-slot:activator="{ on }">
-        <v-btn
-          color="#009432"
-          class=" white--text mb-3 ml-5 mt-2 "
-          v-on="on"
-          sm
-        >
+        <v-btn color="#009432" class=" white--text mb-3 ml-5 mt-2 " v-on="on">
           <v-icon class="white--text">mdi-grease-pencil</v-icon>
           <span>Upload Image</span>
         </v-btn>
@@ -27,6 +22,7 @@
                 type="file"
                 class="form-control-file"
                 @change="OnfileChange"
+                required
               />
             </div>
 

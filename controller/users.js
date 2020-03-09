@@ -1,57 +1,9 @@
-const path = require('path');
-const multer = require('multer');
 const Users = require('../models/Users');
 const AppError = require('../utils/appError');
 const catchAsync = require('../utils/catchAsync');
 const factory = require('./factoryHandler');
 
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, 'public/img/users');
-  },
-  filename: (req, file, cb) => {
-    const photoExt = path.parse(file.originalname).ext;
-    cb(null, `user-${req.user.id}-${Date.now()}.${photoExt}`);
-  }
-});
 
-const fileFilter = (req, file, cb) => {
-  if (file.mimetype.startsWith('image')) {
-    cb(null, true);
-  } else {
-    cb(new AppError('not an image, Please upload only images', 400), false);
-  }
-};
-const upload = multer({
-  storage,
-  fileFilter
-});
-exports.userUpdatePhoto = upload.single('photo');
-
-//@desc   Update Users Details
-//@route  Patch api/v1/users/
-//@access private
-exports.updateMe = catchAsync(async (req, res, next) => {
-  if (req.file) {
-    req.body.photo = req.file.filename;
-  }
-
-  if (req.body.password) {
-    return next(
-      new AppError('you can only update email and name in this route', 401)
-    );
-  }
-
-  const user = await Users.findByIdAndUpdate(req.user.id, req.body, {
-    new: true,
-    runValidators: true
-  });
-
-  res.status(200).json({
-    success: true,
-    data: user
-  });
-});
 
 //@desc   Delete User
 //@route  Delete api/v1/users/

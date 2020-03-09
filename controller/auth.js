@@ -1,10 +1,35 @@
 const { promisify } = require('util');
 const crypto = require('crypto');
+const path = require('path');
+const multer = require('multer');
 const jwt = require('jsonwebtoken');
 
 const Users = require('../models/Users');
 const AppError = require('../utils/appError');
 const catchAsync = require('../utils/catchAsync');
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, 'public/img/users');
+  },
+  filename: (req, file, cb) => {
+    const photoExt = path.parse(file.originalname).ext;
+    cb(null, `user-${req.user.id}-${Date.now()}.${photoExt}`);
+  }
+});
+
+const fileFilter = (req, file, cb) => {
+  if (file.mimetype.startsWith('image')) {
+    cb(null, true);
+  } else {
+    cb(new AppError('not an image, Please upload only images', 400), false);
+  }
+};
+const upload = multer({
+  storage,
+  fileFilter
+});
+exports.userUpdatePhoto = upload.single('file');
 
 const sendToken = (user, res, statusCode) => {
   const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, {
@@ -211,6 +236,51 @@ exports.updatePassword = catchAsync(async (req, res, next) => {
   user.password = newPassword;
   user.passwordConfirm = passwordConfirm;
   await user.save();
+
+  sendToken(user, res, 200);
+});
+
+//@desc   Update Users photos
+//@route  Patch api/v1/users/photos
+//@access private
+exports.updatePhotos = catchAsync(async (req, res, next) => {
+  let user = await Users.findById(req.user.id);
+
+  if (!user) {
+    return next(new AppError('no user found', 400));
+  }
+
+  user = await Users.findByIdAndUpdate(
+    req.user.id,
+    { photo: req.file.filename },
+    {
+      new: true,
+      runValidators: true
+    }
+  );
+
+  sendToken(user, res, 200);
+});
+
+//@desc   Update Users Details
+//@route  Patch api/v1/users/
+//@access private
+exports.updateMe = catchAsync(async (req, res, next) => {
+  const details = {
+    email: req.body.email,
+    name: req.body.name
+  };
+
+  if (req.body.password) {
+    return next(
+      new AppError('you can only update email and name in this route', 401)
+    );
+  }
+
+  const user = await Users.findByIdAndUpdate(req.user.id, details, {
+    new: true,
+    runValidators: true
+  });
 
   sendToken(user, res, 200);
 });

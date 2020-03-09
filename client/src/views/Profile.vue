@@ -45,7 +45,7 @@
           <v-form ref="formm" v-model="valid">
             <v-text-field
               v-model="name"
-              :counter="20"
+              :counter="50"
               :rules="nameRules"
               label="Name"
               required
@@ -58,20 +58,14 @@
               required
             ></v-text-field>
 
-            <div class="d-flex align-items-center mt-4">
-              <v-avatar>
-                <img
-                  :src="`http://localhost:8000/img/users/${getProfile.photo}`"
-                  alt="user"
-                />
-              </v-avatar>
-              <p class="ml-5">Choose new Photo</p>
-            </div>
-
-            <v-btn color="success" class="mr-4 float-right" @click="updateUser">
-              SAVE SETTINGS
+            <v-btn color="success" class="my-4 " @click="updateUser">
+              <i class="fas fa-spin fa-spinner" v-if="loading"></i>
+              {{ loading ? '' : 'SAVE SETTINGS' }}
             </v-btn>
           </v-form>
+          <div class="my-5">
+            <Uploads />
+          </div>
         </div>
         <div class="mt-12 pb-5 main_profile">
           <!-- PASSWORD CHANGE -->
@@ -120,7 +114,8 @@
               class="mr-4 mb-6 float-right"
               @click="updatePassword"
             >
-              SAVE PASSWORD
+              <i class="fas fa-spin fa-spinner" v-if="loading"></i>
+              {{ loading ? '' : 'SAVE PASSWORD' }}
             </v-btn>
           </v-form>
         </div>
@@ -131,9 +126,16 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
+import Uploads from '../components/layouts/Uploads';
+import formMixin from '@mixins/formMixin.js';
 export default {
+  components: {
+    Uploads
+  },
   computed: mapGetters(['getProfile', 'getProfileErrors']),
+  mixins: [formMixin],
   data: () => ({
+    file: '',
     item: 1,
     items: [
       { text: 'SETTINGS', icon: 'mdi-settings-outline' },
@@ -147,11 +149,12 @@ export default {
       { text: 'MANAGE REVIEWS', icon: 'mdi-star-four-points' },
       { text: 'MANAGE BOOKINGS', icon: 'mdi-credit-card' }
     ],
+
     valid: true,
     name: '',
     nameRules: [
-      v => !!v || 'Name is required',
-      v => (v && v.length <= 20) || 'Name must be less than 20 characters'
+      v => !!v || ' Name is required',
+      v => (v && v.length <= 50) || 'Name must be more than 50 characters'
     ],
     email: '',
     emailRules: [
@@ -172,8 +175,12 @@ export default {
   }),
   methods: {
     ...mapActions(['myProfile', 'profileDetails', 'updateProfilePassword']),
+    OnfileChange(e) {
+      this.file = e.target.files[0];
+    },
     // UPDATE USER DETAILS ACTION
     updateUser() {
+      this.toggleLoading();
       if (this.$refs.formm.validate()) {
         this.snackbar = true;
         const user = {
@@ -181,7 +188,9 @@ export default {
           email: this.email
         };
         this.profileDetails(user).then(res => {
+          this.toggleLoading();
           if (res && res.data.success) {
+            this.setAuth(res.data);
             this.$noty.success('Profile Details Updated successfully!');
           } else {
             this.$noty.error(this.getProfileErrors);
@@ -191,6 +200,7 @@ export default {
     },
     // UPDATE PASSWORD ACTION
     updatePassword() {
+      this.toggleLoading();
       if (this.$refs.form.validate()) {
         this.snackbar = true;
         const user = {
@@ -200,6 +210,7 @@ export default {
         };
 
         this.updateProfilePassword(user).then(res => {
+          this.toggleLoading();
           if (res && res.data.success) {
             this.$noty.success('Password Updated successfully!');
           } else {
@@ -211,12 +222,14 @@ export default {
   },
 
   created() {
-    this.myProfile().then(res => {
-      if (res && res.data.success) {
-        this.name = this.getProfile.name;
-        this.email = this.getProfile.email;
-      }
-    });
+    // this.myProfile().then(res => {
+    //   if (res && res.data.success) {
+    //     this.name = this.getProfile.name;
+    //     this.email = this.getProfile.email;
+    //   }
+    // });
+    this.name = this.setUser.name;
+    this.email = this.setUser.email;
   }
 };
 </script>

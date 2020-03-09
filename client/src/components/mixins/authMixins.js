@@ -3,19 +3,20 @@ import { mapGetters, mapActions } from 'vuex';
 
 export default {
   computed: {
-    ...mapGetters(['getUsers']),
+    ...mapGetters(['getUsers', 'getProfile']),
     auth() {
       return !!this.getUsers;
     },
     setUser() {
       return this.getUsers;
     },
+
     confirmEmailSent() {
       return !!this.getUsers.emailConfirmAt;
     }
   },
   methods: {
-    ...mapActions(['logoutUser']),
+    ...mapActions(['logoutUser', 'myProfile']),
     setAuth(payload) {
       localStorage.setItem('auth', JSON.stringify(payload));
       axios.defaults.headers.common[

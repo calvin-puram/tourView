@@ -38,23 +38,8 @@ const actions = {
       commit('users_err', err.response.data.msg);
     }
   },
-  // update profile password
-  async updateProfilePassword({ commit }, dataa) {
-    try {
-      const res = await axios.patch(
-        'http://localhost:8000/api/v1/users/updatePassword',
-        dataa
-      );
-      if (res && res.data.success) {
-        console.log(res.data.data);
-        // commit('users_response', res.data.data);
-      }
-      return res;
-    } catch (err) {
-      console.log(err.response.data.msg);
-      commit('users_err', err.response.data.msg);
-    }
-  }
+
+ 
 };
 const mutations = {
   users_response(state, data) {

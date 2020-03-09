@@ -16,13 +16,10 @@ router.use(auth.protect);
 
 router.patch('/resendEmail', auth.resendEmail);
 router.patch('/updatePassword', auth.updatePassword);
-router.patch(
-  '/updateMe',
-  userController.userUpdatePhoto,
-  userController.updateMe
-);
+router.patch('/updateMe', auth.updateMe);
 router.delete('/deleteMe', userController.deleteMe);
 router.get('/myprofile', userController.myprofile, userController.getOneUser);
+router.patch('/updatePhotos', auth.userUpdatePhoto, auth.updatePhotos);
 
 router.use(auth.restrictTo('admin'));
 

@@ -106,6 +106,36 @@ const actions = {
     } catch (err) {
       commit('login_error', err.response.data.msg);
     }
+  },
+  //update user photo
+  async updateUsers({ commit }, user) {
+    try {
+      const res = await axios.patch(
+        'http://localhost:8000/api/v1/users/updatePhotos',
+        user
+      );
+      if (res && res.data.success) {
+        commit('auth_response', res.data);
+      }
+      return res;
+    } catch (err) {
+      commit('login_error', err.response.data.msg);
+    }
+  },
+  // update profile password
+  async updateProfilePassword({ commit }, dataa) {
+    try {
+      const res = await axios.patch(
+        'http://localhost:8000/api/v1/users/updatePassword',
+        dataa
+      );
+      if (res && res.data.success) {
+        commit('auth_response', res.data);
+      }
+      return res;
+    } catch (err) {
+      commit('login_error', err.response.data.msg);
+    }
   }
 };
 

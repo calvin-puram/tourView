@@ -2,7 +2,7 @@
   <div v-if="auth">
     <div class="row">
       <div class="col-lg-3  col-xs-12">
-        <div class="profile__sidebar ">
+        <div class="profile__sidebar pt-10">
           <div>
             <v-list color="#f4f4f4" light flat>
               <v-list-item-group v-model="item" color="#333">
@@ -12,24 +12,6 @@
                   </v-list-item-icon>
                   <v-list-item-content>
                     <v-list-item-title>{{ item.text }}</v-list-item-title>
-                  </v-list-item-content>
-                </v-list-item>
-              </v-list-item-group>
-            </v-list>
-          </div>
-          <!-- ADMIN -->
-
-          <div>
-            <v-list color="#f4f4f4" light flat>
-              <v-subheader>ADMIN</v-subheader>
-              <v-divider></v-divider>
-              <v-list-item-group v-model="item" color="#333">
-                <v-list-item v-for="(item, i) in admin" :key="i">
-                  <v-list-item-icon>
-                    <v-icon v-text="item.icon"></v-icon>
-                  </v-list-item-icon>
-                  <v-list-item-content>
-                    <v-list-item-title v-text="item.text"></v-list-item-title>
                   </v-list-item-content>
                 </v-list-item>
               </v-list-item-group>
@@ -143,12 +125,6 @@ export default {
       { text: 'MY REVIEWS', icon: 'mdi-star-four-points' },
       { text: 'MY BOOKINGS', icon: 'mdi-credit-card' }
     ],
-    admin: [
-      { text: 'MANAGE TOURS', icon: 'mdi-bookmark-check-outline' },
-      { text: 'MANAGE USERS', icon: 'mdi-account-supervisor-outline' },
-      { text: 'MANAGE REVIEWS', icon: 'mdi-star-four-points' },
-      { text: 'MANAGE BOOKINGS', icon: 'mdi-credit-card' }
-    ],
 
     valid: true,
     name: '',
@@ -222,12 +198,6 @@ export default {
   },
 
   created() {
-    // this.myProfile().then(res => {
-    //   if (res && res.data.success) {
-    //     this.name = this.getProfile.name;
-    //     this.email = this.getProfile.email;
-    //   }
-    // });
     this.name = this.setUser.name;
     this.email = this.setUser.email;
   }
@@ -237,11 +207,10 @@ export default {
 <style scoped>
 .profile__sidebar {
   background: #f4f4f4;
-  height: 100vh;
+  height: 120vh;
 }
 .main_profile {
-  margin: 1rem 15vw;
-  /* width: 60vh; */
+  margin: 3rem 12vw;
 }
 
 .flex {

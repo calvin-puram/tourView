@@ -20,7 +20,9 @@ const actions = {
       }
       return res;
     } catch (err) {
-      commit('users_err', err.response.data.msg);
+      if (err && err.response.data) {
+        commit('users_err', err.response.data.msg);
+      }
     }
   },
   // update profile details
@@ -35,11 +37,11 @@ const actions = {
       }
       return res;
     } catch (err) {
-      commit('users_err', err.response.data.msg);
+      if (err && err.response.data) {
+        commit('users_err', err.response.data.msg);
+      }
     }
-  },
-
- 
+  }
 };
 const mutations = {
   users_response(state, data) {

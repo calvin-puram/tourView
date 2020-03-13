@@ -26,7 +26,9 @@ const actions = {
       }
       return res;
     } catch (err) {
-      commit('auth_error', err.response.data.msg);
+      if (err && err.response.data) {
+        commit('auth_error', err.response.data.msg);
+      }
     }
   },
 
@@ -42,7 +44,9 @@ const actions = {
       }
       return res;
     } catch (err) {
-      commit('login_error', err.response.data.msg);
+      if (err && err.response.data) {
+        commit('login_error', err.response.data.msg);
+      }
     }
   },
   //logout
@@ -61,7 +65,9 @@ const actions = {
       }
       return res;
     } catch (err) {
-      commit('login_error', err.response.data.msg);
+      if (err && err.response.data) {
+        commit('login_error', err.response.data.msg);
+      }
     }
   },
   //reset password
@@ -76,7 +82,9 @@ const actions = {
       }
       return res;
     } catch (err) {
-      commit('login_error', err.response.data.msg);
+      if (err && err.response.data) {
+        commit('login_error', err.response.data.msg);
+      }
     }
   },
   //confirm account
@@ -91,7 +99,9 @@ const actions = {
       }
       return res;
     } catch (err) {
-      commit('login_error', err.response.data.msg);
+      if (err && err.response.data) {
+        commit('login_error', err.response.data.msg);
+      }
     }
   },
 
@@ -104,7 +114,9 @@ const actions = {
 
       return res;
     } catch (err) {
-      commit('login_error', err.response.data.msg);
+      if (err && err.response.data) {
+        commit('login_error', err.response.data.msg);
+      }
     }
   },
   //update user photo
@@ -119,7 +131,9 @@ const actions = {
       }
       return res;
     } catch (err) {
-      commit('login_error', err.response.data.msg);
+      if (err && err.response.data) {
+        commit('login_error', err.response.data.msg);
+      }
     }
   },
   // update profile password
@@ -134,7 +148,9 @@ const actions = {
       }
       return res;
     } catch (err) {
-      commit('login_error', err.response.data.msg);
+      if (err && err.response.data) {
+        commit('login_error', err.response.data.msg);
+      }
     }
   }
 };

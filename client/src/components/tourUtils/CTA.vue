@@ -15,13 +15,21 @@
               {{ getOneTour.duration }} days. 1 adventure. Infinite memories.
               Make it yours today!
             </p>
-            <a
+            <router-link
+              v-if="auth"
+              to="/bookings"
               class="btn btn-danger-gradiant btn-md border-0 text-white mt-3 text-uppercase"
-              href="#"
-              ><span>{{
-                auth ? 'Book Tour Now!' : 'Log In to Book Your Tour'
-              }}</span></a
             >
+              Book Tour Now!
+            </router-link>
+
+            <router-link
+              v-if="!auth"
+              to="/login"
+              class="btn btn-danger-gradiant btn-md border-0 text-white mt-3 text-uppercase"
+            >
+              Log In to Book Your Tour
+            </router-link>
           </div>
         </div>
         <!-- Row -->

@@ -23,9 +23,10 @@ const actions = {
       }
       return res;
     } catch (err) {
-      console.log(err.response.data.msg);
-      commit('tours_err', err.response.data.msg);
-      commit('tourLoading_res');
+      if (err && err.response.data) {
+        commit('tourLoading_res');
+        commit('tours_err', err.response.data.msg);
+      }
     }
   },
   //single tour
@@ -39,9 +40,10 @@ const actions = {
       }
       return res;
     } catch (err) {
-      console.log(err.response.data.msg);
-      commit('tours_err', err.response.data.msg);
-      commit('tourLoading_res');
+      if (err && err.response.data) {
+        commit('tourLoading_res');
+        commit('tours_err', err.response.data.msg);
+      }
     }
   }
 };

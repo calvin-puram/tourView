@@ -57,8 +57,10 @@ export default {
       // get session from api
       const session = await this.checkout(id);
 
-      console.log(session.data.data.id);
       //create checkout form-charge
+      await this.stripe.redirectToCheckout({
+        sessionId: session.data.data.id
+      });
     }
   }
 };

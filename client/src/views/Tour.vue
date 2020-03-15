@@ -138,6 +138,7 @@ export default {
       }, 3000);
     }
   },
+
   watch: {
     $route(to, from) {
       this.slug = to.params.slug;

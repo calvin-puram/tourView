@@ -1,56 +1,38 @@
 import axios from 'axios';
 
 const state = {
-  profile: {},
-  profileError: null
+  session: null,
+  sessionErr: null
 };
 const getters = {
-  getProfile: () => state.profile,
-  getProfileErrors: () => state.profileError
+  getSession: () => state.session,
+  getSessionErr: () => state.sessionErr
 };
 const actions = {
-  // get profile
-  async myProfile({ commit }) {
+  async checkout({ commit }, id) {
     try {
       const res = await axios.get(
-        'http://localhost:8000/api/v1/users/myprofile'
+        `http://localhost:8000/api/v1/bookings/checkout-session/${id}`
       );
       if (res && res.data.success) {
-        commit('users_response', res.data.data);
+        commit('session_response', res.data.data);
       }
       return res;
     } catch (err) {
       if (err && err.response.data) {
-        commit('users_err', err.response.data.msg);
-      }
-    }
-  },
-  // update profile details
-  async profileDetails({ commit }, user) {
-    try {
-      const res = await axios.patch(
-        'http://localhost:8000/api/v1/users/updateMe',
-        user
-      );
-      if (res && res.data.success) {
-        // commit('users_response', res.data.data);
-      }
-      return res;
-    } catch (err) {
-      if (err && err.response.data) {
-        commit('users_err', err.response.data.msg);
+        commit('session_err', err.response.data.msg);
       }
     }
   }
 };
 const mutations = {
-  users_response(state, data) {
-    state.profile = data;
-    state.profileError = null;
+  session_response(state, data) {
+    state.session = data;
+    state.sessionErr = null;
   },
 
-  users_err(state, err) {
-    state.profileError = err;
+  session_err(state, err) {
+    state.sessionErr = err;
   }
 };
 

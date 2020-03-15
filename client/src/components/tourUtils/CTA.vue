@@ -15,13 +15,13 @@
               {{ getOneTour.duration }} days. 1 adventure. Infinite memories.
               Make it yours today!
             </p>
-            <router-link
+            <button
               v-if="auth"
-              to="/bookings"
+              @click="bookings(getOneTour.id)"
               class="btn btn-danger-gradiant btn-md border-0 text-white mt-3 text-uppercase"
             >
               Book Tour Now!
-            </router-link>
+            </button>
 
             <router-link
               v-if="!auth"
@@ -39,9 +39,28 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
+
 export default {
-  computed: mapGetters(['getOneTour'])
+  computed: mapGetters(['getOneTour']),
+  data() {
+    return {
+      stripe: null
+    };
+  },
+  mounted() {
+    this.stripe = window.Stripe('pk_test_dJzzxtLsf6alYgHLYuXU7YWf00xe1OnWxt');
+  },
+  methods: {
+    ...mapActions(['checkout']),
+    async bookings(id) {
+      // get session from api
+      const session = await this.checkout(id);
+
+      console.log(session.data.data.id);
+      //create checkout form-charge
+    }
+  }
 };
 </script>
 

@@ -28,7 +28,7 @@ export default {
   methods: {
     ...mapActions(['tours', 'myProfile'])
   },
-  created() {
+  async created() {
     this.tours();
     this.myProfile();
   }

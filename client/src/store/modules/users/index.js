@@ -28,6 +28,19 @@ const actions = {
         commit('session_err', err.response.data.msg);
       }
     }
+  },
+  async bookingsCheckout({ commit }, details) {
+    try {
+      const res = await axios.post(
+        `http://localhost:8000/api/v1/bookings/bookingsCheckout`,
+        details
+      );
+      return res;
+    } catch (err) {
+      if (err && err.response.data) {
+        commit('session_err', err.response.data.msg);
+      }
+    }
   }
 };
 const mutations = {

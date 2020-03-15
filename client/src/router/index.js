@@ -8,6 +8,7 @@ import ResetPassword from '@views/ResetPassword.vue';
 import ConfirmPassword from '@views/ConfirmPassword.vue';
 import Tours from '@views/Tour.vue';
 import Profile from '@views/Profile.vue';
+import BookingsSuccess from '@views/BookingsSuccess.vue';
 import store from '../store/index';
 
 Vue.use(VueRouter);
@@ -20,6 +21,11 @@ const routes = [
   {
     path: '/tour/:slug',
     component: Tours
+  },
+  {
+    path: '/tour/bookings/:tour/:user/:price',
+    component: BookingsSuccess,
+    props: true
   },
   {
     path: '/profile',

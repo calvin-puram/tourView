@@ -3,6 +3,7 @@ const AppError = require('../utils/appError');
 const catchAsync = require('../utils/catchAsync');
 // const factory = require('./factoryHandler');
 const Tours = require('../models/Tours');
+const Bookings = require('../models/Bookings');
 
 exports.getCheckoutSessions = catchAsync(async (req, res, next) => {
   const tour = await Tours.findById(req.params.tourId);
@@ -16,7 +17,7 @@ exports.getCheckoutSessions = catchAsync(async (req, res, next) => {
   //create checkout session
   const session = await stripe.checkout.sessions.create({
     payment_method_types: ['card'],
-    success_url: `http://localhost:8080/`,
+    success_url: `http://localhost:8080/tour/bookings/${req.params.tourId}/${req.user.id}/${tour.price}`,
     cancel_url: `http://localhost:8080/tour/${tour.slug}`,
     customer_email: req.user.email,
     client_reference_id: req.params.tourId,
@@ -37,5 +38,19 @@ exports.getCheckoutSessions = catchAsync(async (req, res, next) => {
   res.status(200).json({
     success: true,
     data: session
+  });
+});
+
+exports.bookingsCheckout = catchAsync(async (req, res, next) => {
+  const { tour, user, price } = req.body;
+
+  if (!tour && !user && !price) {
+    next(new AppError('Invalid Credentials', 400));
+  }
+
+  await Bookings.create({ tour, user, price });
+
+  res.status(200).json({
+    success: true
   });
 });

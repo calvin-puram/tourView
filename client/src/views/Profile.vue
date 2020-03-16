@@ -1,8 +1,8 @@
 <template>
   <div v-if="auth">
     <div class="row">
-      <div class="col-lg-3  col-xs-12">
-        <div class="profile__sidebar pt-10">
+      <div class="col-lg-3  col-xs-12 profile__sidebar pt-10">
+        <div>
           <div>
             <v-list color="#f4f4f4" light flat>
               <v-list-item-group v-model="item" color="#333">
@@ -167,7 +167,7 @@ export default {
     show3: false
   }),
   methods: {
-    ...mapActions(['myProfile', 'profileDetails', 'updateProfilePassword']),
+    ...mapActions(['profileDetails', 'updateProfilePassword']),
     OnfileChange(e) {
       this.file = e.target.files[0];
     },
@@ -224,7 +224,7 @@ export default {
 <style scoped>
 .profile__sidebar {
   background: #f4f4f4;
-  height: 120vh;
+  min-height: 100vh;
 }
 .main_profile {
   margin: 3rem 12vw;

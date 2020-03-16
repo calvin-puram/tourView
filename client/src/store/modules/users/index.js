@@ -27,7 +27,7 @@ const actions = {
       }
       return res;
     } catch (err) {
-      if (err && err.response.data) {
+      if (err && err.response) {
         commit('payment_res');
         commit('session_err', err.response.data.msg);
       }
@@ -41,7 +41,7 @@ const actions = {
       );
       return res;
     } catch (err) {
-      if (err && err.response.data) {
+      if (err && err.response) {
         commit('session_err', err.response.data.msg);
       }
     }
@@ -56,7 +56,7 @@ const actions = {
       }
       return res;
     } catch (err) {
-      if (err && err.response.data) {
+      if (err && err.response) {
         commit('session_err', err.response.data.msg);
       }
     }

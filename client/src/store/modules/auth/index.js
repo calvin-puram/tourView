@@ -26,7 +26,7 @@ const actions = {
       }
       return res;
     } catch (err) {
-      if (err && err.response.data) {
+      if (err && err.response) {
         commit('auth_error', err.response.data.msg);
       }
     }
@@ -44,7 +44,7 @@ const actions = {
       }
       return res;
     } catch (err) {
-      if (err && err.response.data) {
+      if (err && err.response) {
         commit('login_error', err.response.data.msg);
       }
     }
@@ -65,7 +65,7 @@ const actions = {
       }
       return res;
     } catch (err) {
-      if (err && err.response.data) {
+      if (err && err.response) {
         commit('login_error', err.response.data.msg);
       }
     }
@@ -82,7 +82,7 @@ const actions = {
       }
       return res;
     } catch (err) {
-      if (err && err.response.data) {
+      if (err && err.response) {
         commit('login_error', err.response.data.msg);
       }
     }
@@ -99,7 +99,7 @@ const actions = {
       }
       return res;
     } catch (err) {
-      if (err && err.response.data) {
+      if (err && err.response) {
         commit('login_error', err.response.data.msg);
       }
     }
@@ -114,7 +114,7 @@ const actions = {
 
       return res;
     } catch (err) {
-      if (err && err.response.data) {
+      if (err && err.response) {
         commit('login_error', err.response.data.msg);
       }
     }
@@ -131,7 +131,7 @@ const actions = {
       }
       return res;
     } catch (err) {
-      if (err && err.response.data) {
+      if (err && err.response) {
         commit('login_error', err.response.data.msg);
       }
     }
@@ -148,7 +148,7 @@ const actions = {
       }
       return res;
     } catch (err) {
-      if (err && err.response.data) {
+      if (err && err.response) {
         commit('login_error', err.response.data.msg);
       }
     }

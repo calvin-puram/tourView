@@ -26,11 +26,10 @@ export default {
   },
   name: 'Home',
   methods: {
-    ...mapActions(['tours', 'myProfile'])
+    ...mapActions(['tours'])
   },
   async created() {
     this.tours();
-    this.myProfile();
   }
 };
 </script>

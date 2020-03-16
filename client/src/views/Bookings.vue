@@ -98,7 +98,11 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
+import Spinner from '../components/tourUtils/Spinner';
 export default {
+  components: {
+    Spinner
+  },
   computed: mapGetters(['getBookings', 'getSessionErr', 'bookingLoading']),
   methods: {
     ...mapActions(['getAllBookings'])

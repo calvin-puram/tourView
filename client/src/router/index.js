@@ -25,12 +25,14 @@ const routes = [
   },
   {
     path: '/tour/bookings/:tour/:user/:price',
+    name: 'bookingsSuccess',
     component: BookingsSuccess,
     props: true
   },
   {
     path: '/tours/bookings',
     component: Bookings,
+    name: 'bookings',
     meta: {
       requiresAuth: true
     }

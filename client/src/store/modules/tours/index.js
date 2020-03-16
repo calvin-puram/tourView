@@ -23,7 +23,7 @@ const actions = {
       }
       return res;
     } catch (err) {
-      if (err && err.response.data) {
+      if (err && err.response) {
         commit('tourLoading_res');
         commit('tours_err', err.response.data.msg);
       }
@@ -40,7 +40,7 @@ const actions = {
       }
       return res;
     } catch (err) {
-      if (err && err.response.data) {
+      if (err && err.response) {
         commit('tourLoading_res');
         commit('tours_err', err.response.data.msg);
       }

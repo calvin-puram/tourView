@@ -1,6 +1,6 @@
 <template>
   <div class="wrapper">
-    <div class="d-flex over">
+    <div class="d-flex over" v-if="getOneTour.reviews">
       <v-card
         color="#009432"
         dark
@@ -11,7 +11,10 @@
 
         <v-card-actions>
           <v-list-item class="align-self-end">
-            <v-list-item-avatar color="grey darken-3">
+            <v-list-item-avatar
+              color="grey darken-3"
+              v-if="review.user.photo !== undefined"
+            >
               <v-img
                 class="elevation-6"
                 :src="`http://localhost:8000/img/users/${review.user.photo}`"

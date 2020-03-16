@@ -4,7 +4,7 @@
     <div v-if="loading">
       <Spinner />
     </div>
-    <div v-if="getOneTour && !loading">
+    <div v-if="Object.values(getOneTour).length > 0 && !loading">
       <div class="image">
         <v-img
           :src="`http://localhost:8000/img/tours/${getOneTour.imageCover}`"

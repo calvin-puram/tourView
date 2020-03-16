@@ -6,7 +6,12 @@
           <div>
             <v-list color="#f4f4f4" light flat>
               <v-list-item-group v-model="item" color="#333">
-                <v-list-item v-for="(item, i) in items" :key="i">
+                <v-list-item
+                  v-for="(item, i) in items"
+                  :key="i"
+                  link
+                  :to="item.route"
+                >
                   <v-list-item-icon>
                     <v-icon>{{ item.icon }}</v-icon>
                   </v-list-item-icon>
@@ -120,10 +125,22 @@ export default {
     file: '',
     item: 1,
     items: [
-      { text: 'SETTINGS', icon: 'mdi-settings-outline' },
-      { text: 'MY BILLING', icon: 'mdi-account-card-details' },
-      { text: 'MY REVIEWS', icon: 'mdi-star-four-points' },
-      { text: 'MY BOOKINGS', icon: 'mdi-credit-card' }
+      {
+        text: 'SETTINGS',
+        icon: 'mdi-settings-outline',
+        route: '/tours/settting'
+      },
+      {
+        text: 'MY BILLING',
+        icon: 'mdi-account-card-details',
+        route: '/tours/billings'
+      },
+      {
+        text: 'MY REVIEWS',
+        icon: 'mdi-star-four-points',
+        route: '/tours/reviews'
+      },
+      { text: 'MY BOOKINGS', icon: 'mdi-credit-card', route: '/tours/bookings' }
     ],
 
     valid: true,

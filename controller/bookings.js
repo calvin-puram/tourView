@@ -54,3 +54,15 @@ exports.bookingsCheckout = catchAsync(async (req, res, next) => {
     success: true
   });
 });
+
+exports.getAllBookings = catchAsync(async (req, res, next) => {
+  const bookings = await Bookings.find({ user: req.user.id });
+  const toursId = bookings.map(el => el.tour);
+  const tours = await Tours.find({ _id: { $in: toursId } });
+
+  res.status(200).json({
+    count: tours.length,
+    success: true,
+    data: tours
+  });
+});

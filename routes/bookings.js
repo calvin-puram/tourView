@@ -11,4 +11,5 @@ router
 
 router.route('/bookingsCheckout').post(bookingsController.bookingsCheckout);
 
+router.route('/').get(auth.protect, bookingsController.getAllBookings);
 module.exports = router;

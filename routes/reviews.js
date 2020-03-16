@@ -7,6 +7,8 @@ const auth = require('../controller/auth');
 
 router.use(auth.protect);
 
+router.route('/myReviews').get(reviewController.myReviews);
+
 router
   .route('/')
   .get(reviewController.getReviews)

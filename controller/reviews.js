@@ -80,7 +80,6 @@ exports.deleteReview = catchAsync(async (req, res, next) => {
       new AppError(`No resource found with this id: ${req.params.id}`, 404)
     );
   }
-  
 
   if (review.user._id.toString() !== req.user.id && req.user.role !== 'admin') {
     return next(
@@ -93,5 +92,23 @@ exports.deleteReview = catchAsync(async (req, res, next) => {
   res.status(200).json({
     success: true,
     data: {}
+  });
+});
+
+//@desc   Get All Reviews onUser
+//@route  Get api/v1/reviews/:userId
+//@access private
+exports.myReviews = catchAsync(async (req, res, next) => {
+  req.params.userId = req.user.id;
+  const review = await Reviews.find({ user: req.params.userId });
+
+  if (review.length === 0) {
+    return next(new AppError('user has not review any tour yet', 400));
+  }
+
+  res.status(200).json({
+    count: review.length,
+    success: true,
+    data: review
   });
 });

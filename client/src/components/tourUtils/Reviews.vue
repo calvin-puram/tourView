@@ -49,6 +49,7 @@ export default {
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+  max-width: 500px;
 }
 .over {
   overflow-x: auto;

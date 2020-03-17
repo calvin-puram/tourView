@@ -6,15 +6,13 @@
         dark
         v-for="review in getOneTour.reviews"
         :key="review._id"
+        class="pos"
       >
-        <v-card-text>{{ review.review.slice(0, 80) }} </v-card-text>
+        <v-card-text>{{ review.review }} </v-card-text>
 
         <v-card-actions>
-          <v-list-item class="align-self-end">
-            <v-list-item-avatar
-              color="grey darken-3"
-              v-if="review.user.photo !== undefined"
-            >
+          <v-list-item class="grow">
+            <v-list-item-avatar color="grey darken-3">
               <v-img
                 class="elevation-6"
                 :src="`http://localhost:8000/img/users/${review.user.photo}`"
@@ -46,20 +44,20 @@ export default {
 
   align-items: center;
 }
-
+.pos {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
 .over {
   overflow-x: auto;
 }
 
 .v-card {
   margin: 2rem;
-  height: 160px !important;
-  min-width: 300px !important;
+  
 }
 
-.v-card__actions {
-  display: flex;
-  align-items: flex-end !important;
-  padding: 0;
-}
+
 </style>

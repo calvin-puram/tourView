@@ -10,7 +10,7 @@
                   v-for="(item, i) in items"
                   :key="i"
                   link
-                  :to="item.route"
+                  :to="{ name: item.route }"
                 >
                   <v-list-item-icon>
                     <v-icon>{{ item.icon }}</v-icon>
@@ -138,9 +138,9 @@ export default {
       {
         text: 'MY REVIEWS',
         icon: 'mdi-star-four-points',
-        route: '/tours/reviews'
+        route: 'my-reviews'
       },
-      { text: 'MY BOOKINGS', icon: 'mdi-credit-card', route: '/tours/bookings' }
+      { text: 'MY BOOKINGS', icon: 'mdi-credit-card', route: 'bookings' }
     ],
 
     valid: true,

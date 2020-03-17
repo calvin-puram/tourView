@@ -10,6 +10,7 @@ import Tours from '@views/Tour.vue';
 import Profile from '@views/Profile.vue';
 import BookingsSuccess from '@views/BookingsSuccess.vue';
 import Bookings from '@views/Bookings.vue';
+import UserReviews from '@views/UserReviews.vue';
 import store from '../store/index';
 
 Vue.use(VueRouter);
@@ -33,6 +34,14 @@ const routes = [
     path: '/tours/bookings',
     component: Bookings,
     name: 'bookings',
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path: '/tours/myReviews',
+    component: UserReviews,
+    name: 'my-reviews',
     meta: {
       requiresAuth: true
     }

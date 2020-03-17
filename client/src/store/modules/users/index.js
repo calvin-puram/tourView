@@ -5,14 +5,16 @@ const state = {
   sessionErr: null,
   paymentLoading: false,
   bookingLoading: false,
-  bookings: []
+  bookings: [],
+  myReviews: []
 };
 const getters = {
   getSession: () => state.session,
   getSessionErr: () => state.sessionErr,
   paymentLoading: () => state.paymentLoading,
   bookingLoading: () => state.bookingLoading,
-  getBookings: () => state.bookings
+  getBookings: () => state.bookings,
+  getMyReviews: () => state.myReviews
 };
 const actions = {
   async checkout({ commit }, id) {
@@ -60,6 +62,24 @@ const actions = {
         commit('session_err', err.response.data.msg);
       }
     }
+  },
+  async userReviews({ commit }) {
+    try {
+      commit('payment_req');
+      const res = await axios.get(
+        `http://localhost:8000/api/v1/reviews/myReviews`
+      );
+      if (res && res.data.success) {
+        commit('payment_res');
+        commit('myReviews_res', res.data.data);
+      }
+      return res;
+    } catch (err) {
+      if (err && err.response) {
+        commit('payment_res');
+        commit('session_err', err.response.data.msg);
+      }
+    }
   }
 };
 const mutations = {
@@ -90,6 +110,10 @@ const mutations = {
 
   session_err(state, err) {
     state.sessionErr = err;
+  },
+  myReviews_res(state, reviews) {
+    state.myReviews = reviews;
+    state.sessionErr = null;
   }
 };
 

@@ -49,7 +49,7 @@ export default {
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  max-width: 500px;
+  width: 500px;
 }
 .over {
   overflow-x: auto;
@@ -57,8 +57,5 @@ export default {
 
 .v-card {
   margin: 2rem;
-  
 }
-
-
 </style>

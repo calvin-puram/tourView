@@ -4,8 +4,14 @@ const Tours = require('../models/Tours');
 const Favorite = require('../models/Favorite');
 
 exports.createFavorite = catchAsync(async (req, res, next) => {
-  req.body.user = req.user.id;
+  const checkFavorite = await Favorite.findOne({ tour: req.params.id });
+
+  if (checkFavorite) {
+    return next(new AppError('tour already in users favorite list', 400));
+  }
+
   req.body.tour = req.params.id;
+  req.body.user = req.user.id;
   const favorite = await Favorite.create(req.body);
 
   res.status(200).json({
@@ -22,6 +28,7 @@ exports.getFavorite = catchAsync(async (req, res, next) => {
   }
 
   res.status(200).json({
+    count: favorite.length,
     status: true,
     data: favorite
   });

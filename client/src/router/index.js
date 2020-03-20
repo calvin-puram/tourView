@@ -11,6 +11,7 @@ import Profile from '@views/Profile.vue';
 import BookingsSuccess from '@views/BookingsSuccess.vue';
 import Bookings from '@views/Bookings.vue';
 import UserReviews from '@views/UserReviews.vue';
+import Favorite from '@views/Favorite.vue';
 import store from '../store/index';
 
 Vue.use(VueRouter);
@@ -42,6 +43,14 @@ const routes = [
     path: '/tours/myReviews',
     component: UserReviews,
     name: 'my-reviews',
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path: '/tours/favorite',
+    component: Favorite,
+    name: 'favorite',
     meta: {
       requiresAuth: true
     }

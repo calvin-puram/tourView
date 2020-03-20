@@ -40,7 +40,17 @@
 
                 <v-row align="center" justify="end">
                   <div class="my-2">
-                    <v-btn small color="error">Delete Review</v-btn>
+                    <v-btn
+                      small
+                      color="error"
+                      @click="deleteUserReview(reviews._id)"
+                    >
+                      <i
+                        class="fas fa-spin fa-spinner"
+                        v-if="reviewsLoading"
+                      ></i>
+                      {{ reviewsLoading ? '' : 'Delete Review' }}
+                    </v-btn>
                   </div>
                 </v-row>
               </v-list-item>
@@ -57,12 +67,27 @@ import { mapActions, mapGetters } from 'vuex';
 import Spinner from '../components/tourUtils/Spinner';
 
 export default {
-  computed: mapGetters(['getMyReviews', 'getSessionErr', 'paymentLoading']),
+  computed: mapGetters([
+    'getMyReviews',
+    'getSessionErr',
+    'paymentLoading',
+    'reviewsLoading'
+  ]),
   components: {
     Spinner
   },
   methods: {
-    ...mapActions(['userReviews'])
+    ...mapActions(['userReviews', 'deleteReviews']),
+    deleteUserReview(id) {
+      this.deleteReviews(id).then(res => {
+        if (res && res.data.success) {
+          this.$noty.success('review deleted successfully');
+          this.$router.push('/profile');
+        } else {
+          this.$noty.error(this.getSessionErr);
+        }
+      });
+    }
   },
   created() {
     this.userReviews().then(res => {

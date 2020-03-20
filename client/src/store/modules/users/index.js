@@ -6,7 +6,8 @@ const state = {
   paymentLoading: false,
   bookingLoading: false,
   bookings: [],
-  myReviews: []
+  myReviews: [],
+  reviewsLoading: false
 };
 const getters = {
   getSession: () => state.session,
@@ -14,7 +15,8 @@ const getters = {
   paymentLoading: () => state.paymentLoading,
   bookingLoading: () => state.bookingLoading,
   getBookings: () => state.bookings,
-  getMyReviews: () => state.myReviews
+  getMyReviews: () => state.myReviews,
+  reviewsLoading: () => state.reviewsLoading
 };
 const actions = {
   async checkout({ commit }, id) {
@@ -80,6 +82,23 @@ const actions = {
         commit('session_err', err.response.data.msg);
       }
     }
+  },
+  // delete reviews
+  async deleteReviews({ commit }, userId) {
+    try {
+      commit('deleteReview_req');
+      const res = await axios.delete(
+        `http://localhost:8000/api/v1/reviews/${userId}`
+      );
+      if (res && res.data.success) {
+        commit('deleteReview_res');
+      }
+      return res;
+    } catch (err) {
+      if (err && err.response) {
+        commit('session_err', err.response.data.msg);
+      }
+    }
   }
 };
 const mutations = {
@@ -93,6 +112,14 @@ const mutations = {
   },
   payment_res(state) {
     state.paymentLoading = false;
+    state.sessionErr = null;
+  },
+  deleteReview_req(state) {
+    state.reviewsLoading = true;
+    state.sessionErr = null;
+  },
+  deleteReview_res(state) {
+    state.reviewsLoading = false;
     state.sessionErr = null;
   },
   bookings_res(state) {

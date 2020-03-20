@@ -14,6 +14,7 @@ const usersRoutes = require('./routes/users');
 const globalError = require('./controller/globalError');
 const reviewsRoute = require('./routes/reviews');
 const bookingsRoute = require('./routes/bookings');
+const favoriteRoute = require('./routes/Favorite');
 
 const app = express();
 
@@ -45,6 +46,7 @@ app.use('/api/v1/tours', toursRoutes);
 app.use('/api/v1/users', usersRoutes);
 app.use('/api/v1/reviews', reviewsRoute);
 app.use('/api/v1/bookings', bookingsRoute);
+app.use('/api/v1/favorite', favoriteRoute);
 app.use(globalError);
 
 module.exports = app;

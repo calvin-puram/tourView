@@ -131,16 +131,16 @@ export default {
         route: '/tours/settting'
       },
       {
-        text: 'MY BILLING',
-        icon: 'mdi-account-card-details',
-        route: '/tours/billings'
+        text: ' Favorite Tours',
+        icon: 'mdi-heart',
+        route: 'favorite'
       },
       {
-        text: 'MY REVIEWS',
+        text: 'My Reviews',
         icon: 'mdi-star-four-points',
         route: 'my-reviews'
       },
-      { text: 'MY BOOKINGS', icon: 'mdi-credit-card', route: 'bookings' }
+      { text: 'My Bookings', icon: 'mdi-credit-card', route: 'bookings' }
     ],
 
     valid: true,

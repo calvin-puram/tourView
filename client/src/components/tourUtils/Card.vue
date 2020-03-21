@@ -138,7 +138,7 @@ export default {
     this.getFavorite(this.setUser._id).then(res => {
       if (res && res.data.success) {
         this.getUserFavorite.map(tour => {
-          this.likes.push(tour.tour._id);
+          this.likes.push(tour._id);
         });
       }
     });

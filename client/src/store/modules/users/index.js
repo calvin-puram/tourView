@@ -125,10 +125,12 @@ const actions = {
   // get user favorite
   async getFavorite({ commit }, userId) {
     try {
+      commit('bookings_req');
       const res = await axios.get(
         `http://localhost:8000/api/v1/favorite/${userId}`
       );
       if (res && res.data.success) {
+        commit('bookings_res');
         commit('favorite_tours', res.data.data);
       }
       return res;

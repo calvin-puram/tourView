@@ -41,9 +41,13 @@ exports.getUserFavorite = catchAsync(async (req, res, next) => {
     next(new AppError('user has no favorite tour', 404));
   }
 
+  const toursId = favorite.map(el => el.tour);
+
+  const tours = await Tours.find({ _id: { $in: toursId } });
+
   res.status(200).json({
     count: favorite.length,
     success: true,
-    data: favorite
+    data: tours
   });
 });

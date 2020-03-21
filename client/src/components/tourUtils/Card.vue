@@ -22,8 +22,6 @@
                   fas fa-thumbs-up 
                 "
               ></i>
-
-              <span class="ml-3">12</span>
             </div>
           </div>
 

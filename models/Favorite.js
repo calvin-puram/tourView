@@ -17,9 +17,10 @@ const FavoriteSchema = new mongoose.Schema({
   }
 });
 
-// FavoriteSchema.pre(/^find/, function(next) {
-//   this.populate('user').populate('tour');
-//   next();
-// });
+FavoriteSchema.index({ tour: 1, user: 1 }, { unique: true });
+FavoriteSchema.pre(/^find/, function(next) {
+  this.populate('tour');
+  next();
+});
 
 module.exports = mongoose.model('Favorite', FavoriteSchema);

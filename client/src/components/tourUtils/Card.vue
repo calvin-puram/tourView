@@ -7,8 +7,25 @@
             height="250"
             :src="`http://localhost:8000/img/tours/${tour.imageCover}`"
           ></v-img>
+          <div class="d-flex justify-content-between align-items-center">
+            <v-card-title>{{ tour.name }}</v-card-title>
+            <div class="mr-5" v-if="auth" @click="handleLikes(tour._id)">
+              <i
+                v-if="likes.includes(tour._id)"
+                class="
+                  fas fa-thumbs-up text-success
+                "
+              ></i>
+              <i
+                v-if="!likes.includes(tour._id)"
+                class="
+                  fas fa-thumbs-up 
+                "
+              ></i>
 
-          <v-card-title>{{ tour.name }}</v-card-title>
+              <span class="ml-3">12</span>
+            </div>
+          </div>
 
           <v-card-text>
             <v-row align="center" class="mx-0">
@@ -89,16 +106,48 @@
 import { mapActions, mapGetters } from 'vuex';
 
 export default {
-  computed: mapGetters(['getTourErrors', 'getTours']),
+  computed: mapGetters([
+    'getTourErrors',
+    'getTours',
+    'favoriteErr',
+    'getUserFavorite',
+    'createdFav'
+  ]),
 
   data() {
-    return {};
+    return {
+      likes: []
+    };
   },
   methods: {
-    ...mapActions(['tours'])
+    ...mapActions(['tours', 'createFavorite', 'getFavorite']),
+    handleLikes(tourId) {
+      this.createFavorite(tourId).then(res => {
+        if (res && res.data.success) {
+          this.likes.push(this.createdFav.tour);
+          console.log(this.likes);
+          this.$noty.success('tour added to favorite');
+        } else {
+          this.$noty.error(this.favoriteErr);
+        }
+      });
+    }
   },
   created() {
     this.tours();
+    this.getFavorite(this.setUser._id).then(res => {
+      if (res && res.data.success) {
+        this.getUserFavorite.map(tour => {
+          this.likes.push(tour.tour._id);
+        });
+      }
+    });
   }
 };
 </script>
+
+<style scoped>
+.fa-thumbs-up {
+  cursor: pointer;
+}
+</style>

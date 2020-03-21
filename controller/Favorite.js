@@ -15,7 +15,7 @@ exports.createFavorite = catchAsync(async (req, res, next) => {
   const favorite = await Favorite.create(req.body);
 
   res.status(200).json({
-    status: 'success',
+    success: true,
     data: favorite
   });
 });
@@ -29,7 +29,21 @@ exports.getFavorite = catchAsync(async (req, res, next) => {
 
   res.status(200).json({
     count: favorite.length,
-    status: true,
+    success: true,
+    data: favorite
+  });
+});
+
+exports.getUserFavorite = catchAsync(async (req, res, next) => {
+  const favorite = await Favorite.find({ user: req.params.id });
+
+  if (!favorite) {
+    next(new AppError('user has no favorite tour', 404));
+  }
+
+  res.status(200).json({
+    count: favorite.length,
+    success: true,
     data: favorite
   });
 });

@@ -7,7 +7,10 @@ const state = {
   bookingLoading: false,
   bookings: [],
   myReviews: [],
-  reviewsLoading: false
+  reviewsLoading: false,
+  favoriteErr: null,
+  getUserFavorite: [],
+  createdFav: {}
 };
 const getters = {
   getSession: () => state.session,
@@ -16,7 +19,10 @@ const getters = {
   bookingLoading: () => state.bookingLoading,
   getBookings: () => state.bookings,
   getMyReviews: () => state.myReviews,
-  reviewsLoading: () => state.reviewsLoading
+  reviewsLoading: () => state.reviewsLoading,
+  favoriteErr: () => state.favoriteErr,
+  getUserFavorite: () => state.getUserFavorite,
+  createdFav: () => state.createdFav
 };
 const actions = {
   async checkout({ commit }, id) {
@@ -99,6 +105,38 @@ const actions = {
         commit('session_err', err.response.data.msg);
       }
     }
+  },
+  // create favorite
+  async createFavorite({ commit }, userId) {
+    try {
+      const res = await axios.post(
+        `http://localhost:8000/api/v1/favorite/${userId}`
+      );
+      if (res && res.data.success) {
+        commit('createdFav_tours', res.data.data);
+      }
+      return res;
+    } catch (err) {
+      if (err && err.response) {
+        commit('favorite_err', err.response.data.msg);
+      }
+    }
+  },
+  // get user favorite
+  async getFavorite({ commit }, userId) {
+    try {
+      const res = await axios.get(
+        `http://localhost:8000/api/v1/favorite/${userId}`
+      );
+      if (res && res.data.success) {
+        commit('favorite_tours', res.data.data);
+      }
+      return res;
+    } catch (err) {
+      if (err && err.response) {
+        commit('favorite_err', err.response.data.msg);
+      }
+    }
   }
 };
 const mutations = {
@@ -113,6 +151,9 @@ const mutations = {
   payment_res(state) {
     state.paymentLoading = false;
     state.sessionErr = null;
+  },
+  favorite_err(state, err) {
+    state.favoriteErr = err;
   },
   deleteReview_req(state) {
     state.reviewsLoading = true;
@@ -141,6 +182,14 @@ const mutations = {
   myReviews_res(state, reviews) {
     state.myReviews = reviews;
     state.sessionErr = null;
+  },
+  createdFav_tours(state, data) {
+    state.createdFav = data;
+    state.favoriteErr = null;
+  },
+  favorite_tours(state, data) {
+    state.getUserFavorite = data;
+    state.favoriteErr = null;
   }
 };
 

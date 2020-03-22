@@ -17,7 +17,12 @@
               :src="`http://localhost:8000/img/tours/${tour.imageCover}`"
             ></v-img>
 
-            <v-card-title>{{ tour.name }}</v-card-title>
+            <div class="d-flex justify-content-between align-items-center">
+              <v-card-title>{{ tour.name }}</v-card-title>
+              <div class="mr-5">
+                <i class="fas fa-thumbs-down"></i>
+              </div>
+            </div>
 
             <v-card-text>
               <v-row align="center" class="mx-0">

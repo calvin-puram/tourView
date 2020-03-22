@@ -11,6 +11,7 @@ router.route('/').get(favoriteController.getFavorite);
 router
   .route('/:id')
   .post(favoriteController.createFavorite)
-  .get(favoriteController.getUserFavorite);
+  .get(favoriteController.getUserFavorite)
+  .delete(favoriteController.deleteFavorite);
 
 module.exports = router;

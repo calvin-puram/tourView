@@ -58,4 +58,13 @@ exports.getUserFavorite = catchAsync(async (req, res, next) => {
 // @desc Delete User Favorite Tour
 // @route api/v1/favorite/:id
 // @access private
-exports.deleteFavorite = catchAsync(async (req, res, next) => {});
+exports.deleteFavorite = catchAsync(async (req, res, next) => {
+  const favorite = await Favorite.findOneAndRemove({ tour: req.params.id });
+  if (!favorite) {
+    return next(new AppError('no tour found', 400));
+  }
+  res.status(200).json({
+    success: true,
+    data: {}
+  });
+});

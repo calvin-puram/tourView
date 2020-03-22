@@ -139,6 +139,23 @@ const actions = {
         commit('favorite_err', err.response.data.msg);
       }
     }
+  },
+  // delete user favorite
+  async deleteUsersFavorite({ commit }, userId) {
+    try {
+      commit('bookings_req');
+      const res = await axios.delete(
+        `http://localhost:8000/api/v1/favorite/${userId}`
+      );
+      if (res && res.data.success) {
+        commit('bookings_res');
+      }
+      return res;
+    } catch (err) {
+      if (err && err.response) {
+        commit('favorite_err', err.response.data.msg);
+      }
+    }
   }
 };
 const mutations = {

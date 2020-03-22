@@ -123,7 +123,7 @@ export default {
       this.createFavorite(tourId).then(res => {
         if (res && res.data.success) {
           this.likes.push(this.createdFav.tour);
-          console.log(this.likes);
+
           this.$noty.success('tour added to favorite');
         } else {
           this.$noty.error(this.favoriteErr);

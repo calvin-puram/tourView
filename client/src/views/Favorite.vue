@@ -20,7 +20,10 @@
             <div class="d-flex justify-content-between align-items-center">
               <v-card-title>{{ tour.name }}</v-card-title>
               <div class="mr-5">
-                <i class="fas fa-thumbs-down"></i>
+                <i
+                  class="fas fa-thumbs-down"
+                  @click="deleteFavorite(tour._id)"
+                ></i>
               </div>
             </div>
 
@@ -110,7 +113,17 @@ export default {
   },
   computed: mapGetters(['getUserFavorite', 'favoriteErr', 'bookingLoading']),
   methods: {
-    ...mapActions(['getFavorite'])
+    ...mapActions(['getFavorite', 'deleteUsersFavorite']),
+    deleteFavorite(id) {
+      this.deleteUsersFavorite(id).then(res => {
+        if (res && res.data.success) {
+          this.$noty.success('Favorite  Tour removed successfully');
+          this.$router.push('/profile');
+        } else {
+          this.$noty.error(this.favoriteErr);
+        }
+      });
+    }
   },
   created() {
     this.getFavorite(this.setUser._id).then(res => {
@@ -124,3 +137,9 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.fas {
+  cursor: pointer;
+}
+</style>

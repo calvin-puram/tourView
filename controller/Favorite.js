@@ -3,6 +3,9 @@ const catchAsync = require('../utils/catchAsync');
 const Tours = require('../models/Tours');
 const Favorite = require('../models/Favorite');
 
+// @desc Create Favorite Tours for users
+// @route api/v1/favorite/:id
+// @access private
 exports.createFavorite = catchAsync(async (req, res, next) => {
   req.body.tour = req.params.id;
   req.body.user = req.user.id;
@@ -14,6 +17,9 @@ exports.createFavorite = catchAsync(async (req, res, next) => {
   });
 });
 
+// @desc Get all favorites tours
+// @route api/v1/favorites
+// @access private
 exports.getFavorite = catchAsync(async (req, res, next) => {
   const favorite = await Favorite.find();
 
@@ -28,6 +34,9 @@ exports.getFavorite = catchAsync(async (req, res, next) => {
   });
 });
 
+// @desc Get All User Favorite Tours
+// @route api/v1/favorite/:id
+// @access private
 exports.getUserFavorite = catchAsync(async (req, res, next) => {
   const favorite = await Favorite.find({ user: req.params.id });
 
@@ -45,3 +54,8 @@ exports.getUserFavorite = catchAsync(async (req, res, next) => {
     data: tours
   });
 });
+
+// @desc Delete User Favorite Tour
+// @route api/v1/favorite/:id
+// @access private
+exports.deleteFavorite = catchAsync(async (req, res, next) => {});

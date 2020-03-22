@@ -5,10 +5,12 @@ const router = express.Router();
 const favoriteController = require('../controller/Favorite');
 const auth = require('../controller/auth');
 
-router.route('/').get(auth.protect, favoriteController.getFavorite);
+router.use(auth.protect);
+
+router.route('/').get(favoriteController.getFavorite);
 router
   .route('/:id')
-  .post(auth.protect, favoriteController.createFavorite)
-  .get(auth.protect, favoriteController.getUserFavorite);
+  .post(favoriteController.createFavorite)
+  .get(favoriteController.getUserFavorite);
 
 module.exports = router;

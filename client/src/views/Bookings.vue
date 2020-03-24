@@ -1,10 +1,6 @@
 <template>
   <div>
-    <div v-if="bookingLoading">
-      <Spinner />
-    </div>
-
-    <v-container v-if="getBookings && !bookingLoading">
+    <v-container v-if="getBookings">
       <v-row v-if="getBookings.length > 0">
         <v-col
           cols="md-4 sm-6 xs-12"
@@ -98,24 +94,22 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
-import Spinner from '../components/tourUtils/Spinner';
+import NProgress from 'nprogress';
+import store from '../store/index';
+
 export default {
-  components: {
-    Spinner
-  },
   computed: mapGetters(['getBookings', 'getSessionErr', 'bookingLoading']),
   methods: {
     ...mapActions(['getAllBookings'])
   },
-  created() {
-    this.getAllBookings().then(res => {
+  beforeRouteEnter(to, from, next) {
+    NProgress.start();
+    store.dispatch('getAllBookings').then(res => {
       if (res && res.data.success) {
-        this.$noty.info('All Bookings!');
-      } else {
-        this.$noty.error(this.getSessionErr);
-        this.$router.push('/');
+        NProgress.done();
       }
     });
+    next();
   }
 };
 </script>

@@ -1,10 +1,10 @@
 <template>
   <div>
-    <div v-if="getLoading">
+    <!-- <div v-if="getLoading">
       <Spinner />
-    </div>
+    </div> -->
     <div>
-      <div v-if="!getLoading"><Header /></div>
+      <div><Header /></div>
 
       <Card />
     </div>
@@ -15,21 +15,33 @@
 import { mapGetters, mapActions } from 'vuex';
 import Header from '@layouts/Header';
 import Card from '@tourUtils/Card';
-import Spinner from '@tourUtils/Spinner';
+//import Spinner from '@tourUtils/Spinner';
+import NProgress from 'nprogress';
+import store from '../store/index';
 
 export default {
   computed: mapGetters(['getLoading']),
   components: {
     Card,
-    Spinner,
+    //Spinner,
     Header
   },
   name: 'Home',
+  beforeRouteEnter(to, from, next) {
+    NProgress.start();
+    store.dispatch('tours').then(res => {
+      if (res && res.data.success) {
+        NProgress.done();
+      }
+    });
+
+    next();
+  },
   methods: {
     ...mapActions(['tours'])
-  },
-  async created() {
-    this.tours();
   }
+  // async created() {
+  //   this.tours();
+  // }
 };
 </script>

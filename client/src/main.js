@@ -6,7 +6,10 @@ import vuetify from './plugins/vuetify';
 import VueNoty from 'vuejs-noty';
 import axios from 'axios';
 import authMixin from '@mixins/authMixins';
+import 'nprogress/nprogress.css';
+import NProgress from 'nprogress';
 
+NProgress.configure({ showSpinner: true });
 Vue.config.productionTip = false;
 Vue.prototype.$http = axios;
 Vue.mixin(authMixin);

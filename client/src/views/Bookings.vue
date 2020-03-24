@@ -89,6 +89,9 @@
         </v-col>
       </v-row>
     </v-container>
+    <v-container v-if="getBookings.length === 0">
+      <h3 class="text-center mt-5">User Has No Booking Yet</h3>
+    </v-container>
   </div>
 </template>
 
@@ -106,6 +109,8 @@ export default {
     NProgress.start();
     store.dispatch('getAllBookings').then(res => {
       if (res && res.data.success) {
+        NProgress.done();
+      } else {
         NProgress.done();
       }
     });

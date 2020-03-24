@@ -1,10 +1,6 @@
 <template>
   <div>
-    <div v-if="paymentLoading">
-      <Spinner />
-    </div>
-
-    <div class="container" v-if="getMyReviews && !paymentLoading">
+    <div class="container" v-if="getMyReviews">
       <div class="row">
         <div
           class="col-md-4 col-sm-6 col-xs-12"
@@ -59,12 +55,16 @@
         </div>
       </div>
     </div>
+    <div class="container" v-if="getMyReviews.length === 0">
+      <h3 class="text-center mt-5">User Has no Reviews</h3>
+    </div>
   </div>
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
-import Spinner from '../components/tourUtils/Spinner';
+import store from '../store/index';
+import NProgress from 'nprogress';
 
 export default {
   computed: mapGetters([
@@ -73,9 +73,7 @@ export default {
     'paymentLoading',
     'reviewsLoading'
   ]),
-  components: {
-    Spinner
-  },
+
   methods: {
     ...mapActions(['userReviews', 'deleteReviews']),
     deleteUserReview(id) {
@@ -89,15 +87,16 @@ export default {
       });
     }
   },
-  created() {
-    this.userReviews().then(res => {
+  beforeRouteEnter(to, from, next) {
+    NProgress.start();
+    store.dispatch('userReviews').then(res => {
       if (res && res.data.success) {
-        this.$noty.success('All User Reviews');
+        NProgress.done();
       } else {
-        this.$noty.error(this.getSessionErr);
-        this.$router.push('/');
+        NProgress.done();
       }
     });
+    next();
   }
 };
 </script>

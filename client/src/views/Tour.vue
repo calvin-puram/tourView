@@ -1,10 +1,10 @@
 <template>
   <div>
     <!-- HERO SECTION -->
-    <div v-if="loading">
+    <!-- <div v-if="loading">
       <Spinner />
-    </div>
-    <div v-if="Object.values(getOneTour).length > 0 && !loading">
+    </div> -->
+    <div v-if="Object.values(getOneTour).length > 0">
       <div class="image">
         <v-img
           :src="`http://localhost:8000/img/tours/${getOneTour.imageCover}`"
@@ -113,40 +113,29 @@
 import CTA from '@tourUtils/CTA';
 import ImageDisplay from '@tourUtils/TourDisplay';
 import { mapGetters, mapActions } from 'vuex';
-import Spinner from '@tourUtils/Spinner';
+// import Spinner from '@tourUtils/Spinner';
 import Reviews from '@tourUtils/Reviews';
+import NProgress from 'nprogress';
+import store from '../store/index';
 
 export default {
   components: {
     CTA,
     ImageDisplay,
-    Spinner,
     Reviews
   },
+  beforeRouteEnter(to, from, next) {
+    NProgress.start();
+    store.dispatch('singleTours', to.params.slug).then(res => {
+      if (res && res.data.success) {
+        NProgress.done();
+      }
+    });
+    next();
+  },
   computed: mapGetters(['getOneTour']),
-  data() {
-    return {
-      slug: this.$route.params.slug,
-      loading: true
-    };
-  },
   methods: {
-    ...mapActions(['singleTours']),
-    handleLoading() {
-      setTimeout(() => {
-        this.loading = false;
-      }, 3000);
-    }
-  },
-
-  watch: {
-    $route(to, from) {
-      this.slug = to.params.slug;
-    }
-  },
-  created() {
-    this.singleTours(this.slug);
-    this.handleLoading();
+    ...mapActions(['singleTours'])
   }
 };
 </script>

@@ -106,6 +106,7 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
+
 import Spinner from '../components/tourUtils/Spinner';
 export default {
   components: {
@@ -125,6 +126,7 @@ export default {
       });
     }
   },
+
   created() {
     this.getFavorite(this.setUser._id).then(res => {
       if (res && res.data.success) {

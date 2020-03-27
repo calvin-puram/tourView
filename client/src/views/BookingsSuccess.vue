@@ -18,14 +18,13 @@ export default {
       user: this.user,
       price: this.price
     };
-    console.log(details);
+
     this.bookingsCheckout(details).then(res => {
       if (res && res.data.success) {
         this.$router.push('/');
         this.$noty.info('Tour Booked successfully!');
       }
     });
-    // this.$router.push('/');
   }
 };
 </script>

@@ -20,7 +20,6 @@ export default {
   mounted() {
     this.confirmAccount({ token: this.$route.params.token }).then(res => {
       if (res && res.data.success) {
-        console.log(res.data);
         this.setAuth(res.data);
         this.$noty.success('Account Confirm successfully!');
       } else {

@@ -126,11 +126,6 @@ export default {
     item: 1,
     items: [
       {
-        text: 'SETTINGS',
-        icon: 'mdi-settings-outline',
-        route: '/tours/settting'
-      },
-      {
         text: ' Favorite Tours',
         icon: 'mdi-heart',
         route: 'favorite'

@@ -17,10 +17,7 @@ const actions = {
   //register
   async register({ commit }, dataa) {
     try {
-      const res = await axios.post(
-        'http://localhost:8000/api/v1/users/signup',
-        dataa
-      );
+      const res = await axios.post('api/v1/users/signup', dataa);
       if (res && res.data.success) {
         commit('auth_response', res.data);
       }
@@ -35,10 +32,7 @@ const actions = {
   //login
   async login({ commit }, dataa) {
     try {
-      const res = await axios.post(
-        'http://localhost:8000/api/v1/users/login',
-        dataa
-      );
+      const res = await axios.post('api/v1/users/login', dataa);
       if (res && res.data.success) {
         commit('auth_response', res.data);
       }
@@ -56,10 +50,7 @@ const actions = {
   //forgot password
   async forgotPassword({ commit }, dataa) {
     try {
-      const res = await axios.post(
-        'http://localhost:8000/api/v1/users/forgotPassword',
-        dataa
-      );
+      const res = await axios.post('api/v1/users/forgotPassword', dataa);
       if (res && res.data.success) {
         commit('auth_response', res.data);
       }
@@ -73,10 +64,7 @@ const actions = {
   //reset password
   async resetPassword({ commit }, dataa) {
     try {
-      const res = await axios.patch(
-        'http://localhost:8000/api/v1/users/resetPassword',
-        dataa
-      );
+      const res = await axios.patch('api/v1/users/resetPassword', dataa);
       if (res && res.data.success) {
         commit('auth_response', res.data);
       }
@@ -90,10 +78,7 @@ const actions = {
   //confirm account
   async confirmAccount({ commit }, dataa) {
     try {
-      const res = await axios.post(
-        'http://localhost:8000/api/v1/users/confirmAccount',
-        dataa
-      );
+      const res = await axios.post('api/v1/users/confirmAccount', dataa);
       if (res && res.data.success) {
         commit('auth_response', res.data);
       }
@@ -108,9 +93,7 @@ const actions = {
   //resend Email
   async resendEmail({ commit }) {
     try {
-      const res = await axios.patch(
-        'http://localhost:8000/api/v1/users/resendEmail'
-      );
+      const res = await axios.patch('api/v1/users/resendEmail');
 
       return res;
     } catch (err) {
@@ -122,10 +105,7 @@ const actions = {
   //update user photo
   async updateUsers({ commit }, user) {
     try {
-      const res = await axios.patch(
-        'http://localhost:8000/api/v1/users/updatePhotos',
-        user
-      );
+      const res = await axios.patch('api/v1/users/updatePhotos', user);
       if (res && res.data.success) {
         commit('auth_response', res.data);
       }
@@ -139,10 +119,7 @@ const actions = {
   // update profile password
   async updateProfilePassword({ commit }, dataa) {
     try {
-      const res = await axios.patch(
-        'http://localhost:8000/api/v1/users/updatePassword',
-        dataa
-      );
+      const res = await axios.patch('api/v1/users/updatePassword', dataa);
       if (res && res.data.success) {
         commit('auth_response', res.data);
       }

@@ -28,9 +28,7 @@ const actions = {
   async checkout({ commit }, id) {
     try {
       commit('payment_req');
-      const res = await axios.get(
-        `http://localhost:8000/api/v1/bookings/checkout-session/${id}`
-      );
+      const res = await axios.get(`api/v1/bookings/checkout-session/${id}`);
       if (res && res.data.success) {
         commit('payment_res');
         commit('session_response', res.data.data);
@@ -45,10 +43,7 @@ const actions = {
   },
   async bookingsCheckout({ commit }, details) {
     try {
-      const res = await axios.post(
-        `http://localhost:8000/api/v1/bookings/bookingsCheckout`,
-        details
-      );
+      const res = await axios.post(`api/v1/bookings/bookingsCheckout`, details);
       return res;
     } catch (err) {
       if (err && err.response) {
@@ -59,7 +54,7 @@ const actions = {
   async getAllBookings({ commit }) {
     try {
       commit('bookings_req');
-      const res = await axios.get(`http://localhost:8000/api/v1/bookings`);
+      const res = await axios.get(`api/v1/bookings`);
       if (res && res.data.success) {
         commit('bookings_res');
         commit('allBookings', res.data.data);
@@ -74,9 +69,7 @@ const actions = {
   async userReviews({ commit }) {
     try {
       commit('payment_req');
-      const res = await axios.get(
-        `http://localhost:8000/api/v1/reviews/myReviews`
-      );
+      const res = await axios.get(`api/v1/reviews/myReviews`);
       if (res && res.data.success) {
         commit('payment_res');
         commit('myReviews_res', res.data.data);
@@ -93,9 +86,7 @@ const actions = {
   async deleteReviews({ commit }, userId) {
     try {
       commit('deleteReview_req');
-      const res = await axios.delete(
-        `http://localhost:8000/api/v1/reviews/${userId}`
-      );
+      const res = await axios.delete(`api/v1/reviews/${userId}`);
       if (res && res.data.success) {
         commit('deleteReview_res');
       }
@@ -109,9 +100,7 @@ const actions = {
   // create favorite
   async createFavorite({ commit }, userId) {
     try {
-      const res = await axios.post(
-        `http://localhost:8000/api/v1/favorite/${userId}`
-      );
+      const res = await axios.post(`api/v1/favorite/${userId}`);
       if (res && res.data.success) {
         commit('createdFav_tours', res.data.data);
       }
@@ -126,9 +115,7 @@ const actions = {
   async getFavorite({ commit }, userId) {
     try {
       commit('bookings_req');
-      const res = await axios.get(
-        `http://localhost:8000/api/v1/favorite/${userId}`
-      );
+      const res = await axios.get(`api/v1/favorite/${userId}`);
       if (res && res.data.success) {
         commit('bookings_res');
         commit('favorite_tours', res.data.data);
@@ -144,9 +131,7 @@ const actions = {
   async deleteUsersFavorite({ commit }, userId) {
     try {
       commit('bookings_req');
-      const res = await axios.delete(
-        `http://localhost:8000/api/v1/favorite/${userId}`
-      );
+      const res = await axios.delete(`api/v1/favorite/${userId}`);
       if (res && res.data.success) {
         commit('bookings_res');
       }

@@ -49,4 +49,13 @@ app.use('/api/v1/bookings', bookingsRoute);
 app.use('/api/v1/favorite', favoriteRoute);
 app.use(globalError);
 
+if (process.env.NODE_ENV === 'production') {
+  //set static folder
+  app.use(express.static('./public'));
+
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '/public/index.html'));
+  });
+}
+
 module.exports = app;

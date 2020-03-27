@@ -1,68 +1,11 @@
-# GeoTours API
+# TourView Application
 
-> Backend Api for GeoTours application which is a tour directory.You can check out the postman documentation [GeoTours API](https://documenter.getpostman.com/view/5936515/SzKSRyTa)
+> FullStack TourView application which is a tour directory.You can check out the postman documentation [GeoTours API](https://documenter.getpostman.com/view/5936515/SzKSRyTa)
 
 ## PROJECT ARCHITECTURE
 
-The development of this API took into account several specific needs. It is carefully crafted as one that can easily require updates and new features, taking into account the need for scalability, easy maintainance, performance and security. I have chosen to use the MODEL-VIEW CONTROLLER (MVC)
+The development of this Application took into account several specific needs. It is carefully crafted as one that can easily require updates and new features, taking into account the need for scalability, easy maintainance, performance and security. I have chosen to use the MODEL-VIEW CONTROLLER (MVC)
 architecture.
-
-### A top-level directory structure
-
-```
-C:.
-│   .eslintrc.json
-│   .gitignore
-│   .prettierrc.json
-│   app.js
-│   package-lock.json
-│   package.json
-│   README.md
-│   seeder.js
-│   server.js
-│
-├───config
-│       config.env
-│       db.js
-│
-├───controller
-│       auth.js
-│       factoryHandler.js
-│       globalError.js
-│       reviews.js
-│       tours.js
-│       users.js
-│
-├───dev-data
-│   └───data
-│           reviews.json
-│           tour5.js
-│           tours-simple.json
-│           tours.json
-│           users.json
-│
-├───models
-│       Reviews.js
-│       Tours.js
-│       Users.js
-│
-├───routes
-│       reviews.js
-│       tours.js
-│       users.js
-│
-└───utils
-      ApiFeatures.js
-      appError.js
-      catchAsync.js
-      email.js
-
-```
-
-## API FLOW
-
-The flow of actions across the API can best be described with this diagram.
-![API flow](./public/new.png)
 
 ## Usage
 

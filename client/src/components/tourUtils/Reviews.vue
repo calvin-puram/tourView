@@ -15,7 +15,7 @@
             <v-list-item-avatar color="grey darken-3">
               <v-img
                 class="elevation-6"
-                :src="`http://localhost:8000/img/users/${review.user.photo}`"
+                :src="`/img/users/${review.user.photo}`"
               ></v-img>
             </v-list-item-avatar>
 

@@ -3,10 +3,7 @@
     <v-row>
       <v-col cols="md-4 sm-6 xs-12" v-for="tour in getTours" :key="tour._id">
         <v-card class="mx-auto mb-5 " max-width="374">
-          <v-img
-            height="250"
-            :src="`http://localhost:8000/img/tours/${tour.imageCover}`"
-          ></v-img>
+          <v-img height="250" :src="`/img/tours/${tour.imageCover}`"></v-img>
           <div class="d-flex justify-content-between align-items-center">
             <v-card-title>{{ tour.name }}</v-card-title>
             <div class="mr-5" v-if="auth" @click="handleLikes(tour._id)">

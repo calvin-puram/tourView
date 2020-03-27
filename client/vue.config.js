@@ -7,6 +7,9 @@ module.exports = {
     proxy: {
       '/api': {
         target: 'http://localhost:8000'
+      },
+      '/img': {
+        target: 'http://localhost:8000'
       }
     }
   }

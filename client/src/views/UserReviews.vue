@@ -24,9 +24,7 @@
                 <v-list-item-avatar color="grey darken-3">
                   <v-img
                     class="elevation-6"
-                    :src="
-                      `http://localhost:8000/img/users/${reviews.user.photo}`
-                    "
+                    :src="`/img/users/${reviews.user.photo}`"
                   ></v-img>
                 </v-list-item-avatar>
 

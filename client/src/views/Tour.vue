@@ -7,7 +7,7 @@
     <div v-if="Object.values(getOneTour).length > 0">
       <div class="image">
         <v-img
-          :src="`http://localhost:8000/img/tours/${getOneTour.imageCover}`"
+          :src="`/img/tours/${getOneTour.imageCover}`"
           gradient="rgba(0,0,0, 0.5), rgba(0,0,0, 0.5)"
         >
           <v-row
@@ -64,10 +64,7 @@
               >
                 <span>
                   <v-avatar class="mr-3">
-                    <img
-                      :src="`http://localhost:8000/img/users/${guide.photo}`"
-                      alt="John"
-                    />
+                    <img :src="`/img/users/${guide.photo}`" alt="John" />
                   </v-avatar>
                   <span class="font-weight-medium">{{
                     guide.role === 'guide' ? 'Admin-Guide' : 'Lead-Guide'

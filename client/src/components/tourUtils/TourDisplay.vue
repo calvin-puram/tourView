@@ -6,7 +6,7 @@
         v-for="img in getOneTour.images"
         :key="img"
       >
-        <img :src="`http://localhost:8000/img/tours/${img}`" alt="showcase" />
+        <img :src="`/img/tours/${img}`" alt="showcase" />
       </div>
     </div>
   </div>

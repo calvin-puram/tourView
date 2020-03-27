@@ -16,7 +16,7 @@ const actions = {
   async tours({ commit }) {
     try {
       commit('tourLoading_req');
-      const res = await axios.get('api/v1/tours');
+      const res = await axios.get('/api/v1/tours');
       if (res && res.data.success) {
         commit('tourLoading_res');
         commit('tours_response', res.data.data);
@@ -33,7 +33,7 @@ const actions = {
   async singleTours({ commit }, slug) {
     try {
       commit('tourLoading_req');
-      const res = await axios.get(`api/v1/tours/${slug}`);
+      const res = await axios.get(`/api/v1/tours/${slug}`);
       if (res && res.data.success) {
         commit('tourLoading_res');
         commit('tourSingle_response', res.data.data);

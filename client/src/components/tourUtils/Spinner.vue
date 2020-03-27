@@ -1,6 +1,6 @@
 <template>
   <div class="spinner">
-    <img src="/img/spinner.gif" width="5%" alt="spinner" />
+    <img :src="`/img/spinner.gif`" width="5%" alt="spinner" />
   </div>
 </template>
 

@@ -1,10 +1,7 @@
 <template>
   <div class="d-flex justify-content-center align-items-center text-center">
     <v-avatar>
-      <img
-        :src="`http://localhost:8000/img/users/${setUser.photo}`"
-        alt="user"
-      />
+      <img :src="`/img/users/${setUser.photo}`" alt="user" />
     </v-avatar>
     <v-dialog v-model="dialog" width="600px">
       <template v-slot:activator="{ on }">

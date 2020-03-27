@@ -73,10 +73,7 @@
         <div v-if="auth">
           <router-link to="/profile">
             <v-avatar class="mr-5">
-              <img
-                :src="`http://localhost:8000/img/users/${setUser.photo}`"
-                alt="user"
-              />
+              <img :src="`/img/users/${setUser.photo}`" alt="user" />
             </v-avatar>
           </router-link>
         </div>

@@ -43,7 +43,7 @@
 import { mapGetters, mapActions } from 'vuex';
 
 export default {
-  computed: mapGetters(['getOneTour', 'paymentLoading']),
+  computed: mapGetters(['getOneTour', 'paymentLoading', 'getSession']),
   data() {
     return {
       stripe: null
@@ -56,11 +56,11 @@ export default {
     ...mapActions(['checkout']),
     async bookings(id) {
       // get session from api
-      const session = await this.checkout(id);
+      await this.checkout(id);
 
       //create checkout form-charge
       await this.stripe.redirectToCheckout({
-        sessionId: session.data.data.id
+        sessionId: getSession.id
       });
     }
   }

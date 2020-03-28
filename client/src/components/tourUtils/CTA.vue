@@ -59,6 +59,7 @@ export default {
       await this.checkout(id);
 
       //create checkout form-charge
+      console.log(getSession);
       await this.stripe.redirectToCheckout({
         sessionId: getSession.id
       });

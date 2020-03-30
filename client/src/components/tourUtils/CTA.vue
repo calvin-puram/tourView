@@ -47,14 +47,16 @@ export default {
   methods: {
     ...mapActions(['checkout']),
     bookings(tourId) {
-      const stripe = window.Stripe(process.env.VUE_APP_STRIPE_PUBLIC);
+      const stripe = window.Stripe(
+        'pk_test_dJzzxtLsf6alYgHLYuXU7YWf00xe1OnWxt'
+      );
       // get session from api
       this.checkout(tourId).then(res => {
         if (res && res.data.success) {
           //create checkout form-charge
 
           stripe.redirectToCheckout({
-            sessionId: res.data.data.id
+            sessionId: this.getSession.id
           });
         }
       });

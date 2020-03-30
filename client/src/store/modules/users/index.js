@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const state = {
-  session: null,
+  session: {},
   sessionErr: null,
   paymentLoading: false,
   bookingLoading: false,

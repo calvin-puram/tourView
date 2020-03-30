@@ -49,13 +49,17 @@ export default {
     async bookings(tourId) {
       const stripe = window.Stripe(process.env.VUE_APP_STRIPE_PUBLIC);
       // get session from api
-      await this.checkout(tourId);
+      await this.checkout(tourId).then(res => {
+        if (res && res.data.success) {
+          //create checkout form-charge
 
-      //create checkout form-charge
-
-      await stripe.redirectToCheckout({
-        sessionId: this.getSession.id
+          await stripe.redirectToCheckout({
+            sessionId: this.getSession.id
+          });
+        }
       });
+
+
     }
   }
 };

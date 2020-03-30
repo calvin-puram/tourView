@@ -28,7 +28,7 @@ const actions = {
   async checkout({ commit }, id) {
     try {
       commit('payment_req');
-      const res = await axios.get(`api/v1/bookings/checkout-session/${id}`);
+      const res = await axios.get(`/api/v1/bookings/checkout-session/${id}`);
       if (res && res.data.success) {
         commit('payment_res');
         commit('session_response', res.data.data);

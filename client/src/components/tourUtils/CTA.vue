@@ -44,12 +44,12 @@ import { mapGetters, mapActions } from 'vuex';
 
 export default {
   computed: mapGetters(['getOneTour', 'paymentLoading', 'getSession']),
+  created() {
+    const stripe = window.Stripe('pk_test_dJzzxtLsf6alYgHLYuXU7YWf00xe1OnWxt');
+  },
   methods: {
     ...mapActions(['checkout']),
     bookings(tourId) {
-      const stripe = window.Stripe(
-        'pk_test_dJzzxtLsf6alYgHLYuXU7YWf00xe1OnWxt'
-      );
       // get session from api
       this.checkout(tourId).then(res => {
         if (res && res.data.success) {

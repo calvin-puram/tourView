@@ -22,7 +22,6 @@
               class="btn btn-danger-gradiant btn-md border-0 text-white mt-3 text-uppercase"
             >
               Book Tour Now!
-              <!-- {{ paymentLoading ? 'Processing...' : 'Book Tour Now!' }} -->
             </button>
 
             <router-link

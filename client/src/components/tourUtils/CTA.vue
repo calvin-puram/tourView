@@ -46,20 +46,18 @@ export default {
   computed: mapGetters(['getOneTour', 'paymentLoading', 'getSession']),
   methods: {
     ...mapActions(['checkout']),
-    async bookings(tourId) {
+    bookings(tourId) {
       const stripe = window.Stripe(process.env.VUE_APP_STRIPE_PUBLIC);
       // get session from api
-      await this.checkout(tourId).then(res => {
+      this.checkout(tourId).then(res => {
         if (res && res.data.success) {
           //create checkout form-charge
 
-          await stripe.redirectToCheckout({
-            sessionId: this.getSession.id
+          stripe.redirectToCheckout({
+            sessionId: res.data.data.id
           });
         }
       });
-
-
     }
   }
 };

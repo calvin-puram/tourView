@@ -50,7 +50,7 @@ export default {
     };
   },
   mounted() {
-    this.stripe = window.Stripe('pk_test_dJzzxtLsf6alYgHLYuXU7YWf00xe1OnWxt');
+    this.stripe = window.Stripe(process.env.VUE_APP_STRIPE_PUBLIC);
   },
   methods: {
     ...mapActions(['checkout']),
@@ -59,9 +59,9 @@ export default {
       await this.checkout(id);
 
       //create checkout form-charge
-      console.log(getSession);
+
       await this.stripe.redirectToCheckout({
-        sessionId: getSession.id
+        sessionId: this.getSession.id
       });
     }
   }

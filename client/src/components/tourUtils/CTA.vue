@@ -21,7 +21,8 @@
               @click="bookings(getOneTour._id)"
               class="btn btn-danger-gradiant btn-md border-0 text-white mt-3 text-uppercase"
             >
-              {{ paymentLoading ? 'Processing...' : 'Book Tour Now!' }}
+              Book Tour Now!
+              <!-- {{ paymentLoading ? 'Processing...' : 'Book Tour Now!' }} -->
             </button>
 
             <router-link
@@ -44,12 +45,12 @@ import { mapGetters, mapActions } from 'vuex';
 
 export default {
   computed: mapGetters(['getOneTour', 'paymentLoading', 'getSession']),
-  created() {
-    const stripe = window.Stripe('pk_test_dJzzxtLsf6alYgHLYuXU7YWf00xe1OnWxt');
-  },
   methods: {
     ...mapActions(['checkout']),
     bookings(tourId) {
+      const stripe = window.Stripe(
+        'pk_test_dJzzxtLsf6alYgHLYuXU7YWf00xe1OnWxt'
+      );
       // get session from api
       this.checkout(tourId).then(res => {
         if (res && res.data.success) {

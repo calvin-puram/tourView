@@ -42,6 +42,7 @@ const actions = {
   },
   async bookingsCheckout({ commit }, details) {
     try {
+      console.log(details);
       const res = await axios.post(
         `/api/v1/bookings/bookingsCheckout`,
         details

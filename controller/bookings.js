@@ -19,7 +19,7 @@ exports.getCheckoutSessions = catchAsync(async (req, res, next) => {
     success_url:
       process.env.NODE_ENV === 'production'
         ? `https://tourview.herokuapp.com/tour/bookings/${req.params.tourId}/${req.user.id}/${tour.price}`
-        : `${process.env.BASE_URL}/tour/bookings/${req.params.tourId}/${req.user.id}/${tour.price}'`,
+        : `${process.env.BASE_URL}/tour/bookings/${req.params.tourId}/${req.user.id}/${tour.price}`,
     cancel_url:
       process.env.NODE_ENV === 'production'
         ? `https://tourview.herokuapp.com/tour/${tour.slug}`

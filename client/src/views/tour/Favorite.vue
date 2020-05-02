@@ -104,7 +104,7 @@
 <script>
 import { mapActions, mapGetters } from 'vuex';
 
-import Spinner from '../components/tourUtils/Spinner';
+import Spinner from '@tourUtils/Spinner';
 export default {
   components: {
     Spinner

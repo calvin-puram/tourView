@@ -95,6 +95,8 @@
       </v-container>
       <!-- TOUR DISPLAY -->
       <ImageDisplay />
+      <!-- MAP -->
+      <TourMap :tour="getOneTour" />
 
       <!-- REVIEWS -->
 
@@ -110,7 +112,7 @@
 import CTA from '@tourUtils/CTA';
 import ImageDisplay from '@tourUtils/TourDisplay';
 import { mapGetters, mapActions } from 'vuex';
-// import Spinner from '@tourUtils/Spinner';
+import TourMap from '@tourUtils/TourMap';
 import Reviews from '@tourUtils/Reviews';
 import NProgress from 'nprogress';
 import store from '@store/index';
@@ -119,7 +121,8 @@ export default {
   components: {
     CTA,
     ImageDisplay,
-    Reviews
+    Reviews,
+    TourMap
   },
   beforeRouteEnter(to, from, next) {
     NProgress.start();

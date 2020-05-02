@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="container" v-if="getMyReviews">
+    <div class="container" v-if="getMyReviews && !loading">
       <div class="row">
         <div
           class="col-md-4 col-sm-6 col-xs-12"
@@ -53,7 +53,7 @@
         </div>
       </div>
     </div>
-    <div class="container" v-if="getMyReviews.length === 0">
+    <div class="container" v-if="getMyReviews.length === 0 && !loading">
       <h3 class="text-center mt-5">User Has no Reviews</h3>
     </div>
   </div>
@@ -61,7 +61,6 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
-import store from '@store/index';
 import NProgress from 'nprogress';
 
 export default {
@@ -71,7 +70,11 @@ export default {
     'paymentLoading',
     'reviewsLoading'
   ]),
-
+  data() {
+    return {
+      loading: false
+    };
+  },
   methods: {
     ...mapActions(['userReviews', 'deleteReviews']),
     deleteUserReview(id) {
@@ -85,16 +88,18 @@ export default {
       });
     }
   },
-  beforeRouteEnter(to, from, next) {
+  created() {
     NProgress.start();
-    store.dispatch('userReviews').then(res => {
+    this.loading = true;
+    this.userReviews().then(res => {
       if (res && res.data.success) {
+        this.loading = false;
         NProgress.done();
       } else {
+        this.loading = false;
         NProgress.done();
       }
     });
-    next();
   }
 };
 </script>

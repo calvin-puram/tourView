@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-container v-if="getBookings">
+    <v-container v-if="getBookings && !loading">
       <v-row v-if="getBookings.length > 0">
         <v-col
           cols="md-4 sm-6 xs-12"
@@ -86,7 +86,7 @@
         </v-col>
       </v-row>
     </v-container>
-    <v-container v-if="getBookings.length === 0">
+    <v-container v-if="getBookings.length === 0 && !loading">
       <h3 class="text-center mt-5">User Has No Booking Yet</h3>
     </v-container>
   </div>
@@ -95,23 +95,29 @@
 <script>
 import { mapActions, mapGetters } from 'vuex';
 import NProgress from 'nprogress';
-import store from '@store/index';
 
 export default {
   computed: mapGetters(['getBookings', 'getSessionErr', 'bookingLoading']),
+  data() {
+    return {
+      loading: false
+    };
+  },
   methods: {
     ...mapActions(['getAllBookings'])
   },
-  beforeRouteEnter(to, from, next) {
+  created() {
+    this.loading = true;
     NProgress.start();
-    store.dispatch('getAllBookings').then(res => {
+    this.getAllBookings().then(res => {
       if (res && res.data.success) {
+        this.loading = false;
         NProgress.done();
       } else {
+        this.loading = false;
         NProgress.done();
       }
     });
-    next();
   }
 };
 </script>

@@ -119,7 +119,7 @@ export default {
   components: {
     Uploads
   },
-  computed: mapGetters(['getProfile', 'getProfileErrors']),
+  computed: mapGetters(['getProfile', 'getProfileErrors', 'getErrors']),
   mixins: [formMixin],
   data: () => ({
     file: '',
@@ -162,7 +162,7 @@ export default {
     show3: false
   }),
   methods: {
-    ...mapActions(['profileDetails', 'updateProfilePassword']),
+    ...mapActions(['updateProfiledetails', 'updateProfilePassword']),
     OnfileChange(e) {
       this.file = e.target.files[0];
     },
@@ -175,11 +175,14 @@ export default {
           name: this.name,
           email: this.email
         };
-        this.profileDetails(user).then(res => {
+        this.updateProfiledetails(user).then(res => {
           this.toggleLoading();
           if (res && res.data.success) {
-            this.setAuth(res.data);
             this.$noty.success('Profile Details Updated successfully!');
+            localStorage.setItem('auth', JSON.stringify(res.data));
+            axios.defaults.headers.common[
+              'Authorization'
+            ] = `Bearer ${res.data.token}`;
           } else {
             this.$noty.error(this.getProfileErrors);
           }
@@ -202,7 +205,7 @@ export default {
           if (res && res.data.success) {
             this.$noty.success('Password Updated successfully!');
           } else {
-            this.$noty.error(this.getProfileErrors);
+            this.$noty.error(this.getErrors);
           }
         });
       }

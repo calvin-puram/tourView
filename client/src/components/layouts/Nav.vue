@@ -79,10 +79,10 @@
         </div>
         <div v-else class="d-flex justify-content-between align-items-center">
           <router-link to="/login">
-            <v-btn class="white" light rounded>Login</v-btn>
+            <v-btn class="white" light>Login</v-btn>
           </router-link>
           <router-link to="/register" class="ml-5">
-            <v-btn class="white" light rounded>Register</v-btn>
+            <v-btn class="white" light>Register</v-btn>
           </router-link>
         </div>
       </template>

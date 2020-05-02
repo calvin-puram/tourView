@@ -129,6 +129,20 @@ const actions = {
         commit('login_error', err.response.data.msg);
       }
     }
+  },
+  // update profile details
+  async updateProfiledetails({ commit }, dataa) {
+    try {
+      const res = await axios.patch('/api/v1/users/updateMe', dataa);
+      if (res && res.data.success) {
+        commit('auth_response', res.data);
+      }
+      return res;
+    } catch (err) {
+      if (err && err.response) {
+        commit('login_error', err.response.data.msg);
+      }
+    }
   }
 };
 

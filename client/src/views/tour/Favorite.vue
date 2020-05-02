@@ -1,10 +1,10 @@
 <template>
   <div>
-    <div v-if="bookingLoading">
+    <div v-if="loading">
       <Spinner />
     </div>
 
-    <v-container v-if="getUserFavorite && !bookingLoading">
+    <v-container v-if="getUserFavorite && !loading">
       <v-row v-if="getUserFavorite.length > 0">
         <v-col
           cols="md-4 sm-6 xs-12"
@@ -97,6 +97,9 @@
           </v-card>
         </v-col>
       </v-row>
+      <v-row v-if="getUserFavorite.length === 0">
+        <h3 class="mx-auto text--secondary mt-5">No Favorite Tours Yet</h3>
+      </v-row>
     </v-container>
   </div>
 </template>
@@ -108,6 +111,11 @@ import Spinner from '@tourUtils/Spinner';
 export default {
   components: {
     Spinner
+  },
+  data() {
+    return {
+      loading: false
+    };
   },
   computed: mapGetters(['getUserFavorite', 'favoriteErr', 'bookingLoading']),
   methods: {
@@ -125,7 +133,9 @@ export default {
   },
 
   created() {
+    this.loading = true;
     this.getFavorite(this.setUser._id).then(res => {
+      this.loading = false;
       if (res && res.data.success) {
         this.$noty.info('All Favorite Tours');
       } else {

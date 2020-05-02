@@ -133,11 +133,8 @@ const actions = {
   // delete user favorite
   async deleteUsersFavorite({ commit }, userId) {
     try {
-      commit('bookings_req');
       const res = await axios.delete(`/api/v1/favorite/${userId}`);
-      if (res && res.data.success) {
-        commit('bookings_res');
-      }
+
       return res;
     } catch (err) {
       if (err && err.response) {

@@ -9,6 +9,7 @@ node_modules
 # local env files
 /client/.env.local
 /client/.env.production
+/client/.env.development
 /client/.env.*.local
 
 # Log files

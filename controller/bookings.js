@@ -1,7 +1,6 @@
-const stripe = require('stripe')('sk_test_ACohO2E7mJ130xVTagwmyu1B00SKDq7feX');
+const stripe = require('stripe')(process.env.STRIPE_SECRET);
 const AppError = require('../utils/appError');
 const catchAsync = require('../utils/catchAsync');
-// const factory = require('./factoryHandler');
 const Tours = require('../models/Tours');
 const Bookings = require('../models/Bookings');
 
@@ -17,8 +16,14 @@ exports.getCheckoutSessions = catchAsync(async (req, res, next) => {
   //create checkout session
   const session = await stripe.checkout.sessions.create({
     payment_method_types: ['card'],
-    success_url: `https://tourview.herokuapp.com/tour/bookings/${req.params.tourId}/${req.user.id}/${tour.price}`,
-    cancel_url: `https://tourview.herokuapp.com/tour/${tour.slug}`,
+    success_url:
+      process.env.NODE_ENV === 'production'
+        ? `https://tourview.herokuapp.com/tour/bookings/${req.params.tourId}/${req.user.id}/${tour.price}`
+        : `${process.env.BASE_URL}/tour/bookings/${req.params.tourId}/${req.user.id}/${tour.price}'`,
+    cancel_url:
+      process.env.NODE_ENV === 'production'
+        ? `https://tourview.herokuapp.com/tour/${tour.slug}`
+        : `${process.env.BASE_URL}/tour/${tour.slug}`,
     customer_email: req.user.email,
     client_reference_id: req.params.tourId,
     line_items: [

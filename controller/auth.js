@@ -8,15 +8,6 @@ const Users = require('../models/Users');
 const AppError = require('../utils/appError');
 const catchAsync = require('../utils/catchAsync');
 
-// const storage = multer.diskStorage({
-//   destination: (req, file, cb) => {
-//     cb(null, 'public/img/users');
-//   },
-//   filename: (req, file, cb) => {
-//     const photoExt = path.parse(file.originalname).ext;
-//     cb(null, `user-${req.user.id}-${Date.now()}.${photoExt}`);
-//   }
-// });
 const storage = multer.memoryStorage();
 
 const fileFilter = (req, file, cb) => {
@@ -30,7 +21,7 @@ const fileFilter = (req, file, cb) => {
 };
 const upload = multer({
   storage,
-  fileFilter
+  fileFilter,
 });
 
 exports.resizeImage = catchAsync(async (req, res, next) => {
@@ -48,14 +39,14 @@ exports.userUpdatePhoto = upload.single('file');
 
 const sendToken = (user, res, statusCode) => {
   const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, {
-    expiresIn: process.env.JWT_EXPIRES
+    expiresIn: process.env.JWT_EXPIRES,
   });
 
   user.password = undefined;
   res.status(statusCode).json({
     success: true,
     token,
-    user
+    user,
   });
 };
 
@@ -155,7 +146,7 @@ exports.forgotPassword = catchAsync(async (req, res, next) => {
     await user.save({ validateBeforeSave: false });
     res.status(200).json({
       success: true,
-      message: 'a reset password link has being sent to your mail'
+      message: 'a reset password link has being sent to your mail',
     });
   } catch (err) {
     console.log(err);
@@ -180,7 +171,7 @@ exports.resetPassword = catchAsync(async (req, res, next) => {
 
   const user = await Users.findOne({
     passwordResetToken: hashedToken,
-    passwordResetExpires: { $gt: Date.now() }
+    passwordResetExpires: { $gt: Date.now() },
   });
 
   if (!user) {
@@ -196,7 +187,7 @@ exports.resetPassword = catchAsync(async (req, res, next) => {
   // sendToken(user, res, 200);
   res.status(200).json({
     success: true,
-    message: 'password reset successfully!'
+    message: 'password reset successfully!',
   });
 });
 
@@ -229,7 +220,7 @@ exports.resendEmail = catchAsync(async (req, res, next) => {
 
   res.status(200).json({
     success: true,
-    msg: 'email confirmation sent'
+    msg: 'email confirmation sent',
   });
 });
 //@desc   update Password
@@ -270,7 +261,7 @@ exports.updatePhotos = catchAsync(async (req, res, next) => {
     { photo: req.file.filename },
     {
       new: true,
-      runValidators: true
+      runValidators: true,
     }
   );
 
@@ -283,7 +274,7 @@ exports.updatePhotos = catchAsync(async (req, res, next) => {
 exports.updateMe = catchAsync(async (req, res, next) => {
   const details = {
     email: req.body.email,
-    name: req.body.name
+    name: req.body.name,
   };
 
   if (req.body.password) {
@@ -294,7 +285,7 @@ exports.updateMe = catchAsync(async (req, res, next) => {
 
   const user = await Users.findByIdAndUpdate(req.user.id, details, {
     new: true,
-    runValidators: true
+    runValidators: true,
   });
 
   sendToken(user, res, 200);

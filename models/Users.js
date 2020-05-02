@@ -3,7 +3,6 @@ const mongoose = require('mongoose');
 const validator = require('validator');
 const bcrypt = require('bcryptjs');
 const Mail = require('@fullstackjs/mail');
-const envVar = require('../config/index');
 
 const { Schema } = mongoose;
 
@@ -93,7 +92,7 @@ UserSchema.methods.resendEmailConfirm = async function() {
       .to(this.email, this.name)
       .subject('confirm your email')
       .data({
-        url: `${envVar.base_url}/email/confirm/${this.emailConfirmCode}`,
+        url: `${process.env.BASE_URL}/email/confirm/${this.emailConfirmCode}`,
         name: this.name
       })
       .send();
@@ -147,7 +146,7 @@ UserSchema.methods.forgotPasswordToken = async function() {
       .to(this.email, this.name)
       .subject('password reset token (expires after 10mins)')
       .data({
-        url: `${envVar.base_url}/reset/password/${resetToken}`,
+        url: `${process.env.BASE_URL}/reset/password/${resetToken}`,
         name: this.name
       })
       .send();

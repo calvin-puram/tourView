@@ -57,7 +57,7 @@
               <div>
                 <p>
                   <v-icon left>mdi-map-search</v-icon>
-                  {{ tour.location.length !== 0 ? tour.locations.length : 0 }}
+                  {{ tour.locations.length !== 0 ? tour.locations.length : 0 }}
                   Stops
                 </p>
                 <p>

@@ -113,7 +113,7 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
-import Uploads from '../components/layouts/Uploads';
+import Uploads from '@layouts/Uploads';
 import formMixin from '@mixins/formMixin.js';
 export default {
   components: {

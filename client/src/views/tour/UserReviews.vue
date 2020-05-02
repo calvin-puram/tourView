@@ -61,7 +61,7 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
-import store from '../store/index';
+import store from '@store/index';
 import NProgress from 'nprogress';
 
 export default {

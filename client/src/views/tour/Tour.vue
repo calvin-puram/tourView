@@ -113,7 +113,7 @@ import { mapGetters, mapActions } from 'vuex';
 // import Spinner from '@tourUtils/Spinner';
 import Reviews from '@tourUtils/Reviews';
 import NProgress from 'nprogress';
-import store from '../store/index';
+import store from '@store/index';
 
 export default {
   components: {

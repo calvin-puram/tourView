@@ -95,7 +95,7 @@
 <script>
 import { mapActions, mapGetters } from 'vuex';
 import NProgress from 'nprogress';
-import store from '../store/index';
+import store from '@store/index';
 
 export default {
   computed: mapGetters(['getBookings', 'getSessionErr', 'bookingLoading']),

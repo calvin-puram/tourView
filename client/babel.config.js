@@ -9,7 +9,8 @@ module.exports = {
           '@mixins': './src/components/mixins',
           '@views': './src/views',
           '@layouts': './src/components/layouts',
-          '@tourUtils': './src/components/tourUtils'
+          '@tourUtils': './src/components/tourUtils',
+          '@store': './src/store'
         }
       }
     ]

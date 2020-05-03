@@ -11,22 +11,18 @@
         </span>
       </p>
 
-      <v-list dense>
-        <v-list-item link>
-          <v-list-item-action>
-            <v-icon>mdi-home</v-icon>
-          </v-list-item-action>
-          <v-list-item-content>
-            <v-list-item-title>Home</v-list-item-title>
-          </v-list-item-content>
+      <v-list dense class="text-center mt-12 ml-12">
+        <v-list-item link class="mb-5">
+          <i class="fas fa-home mr-3 text-success"></i>
+          <router-link to="/"
+            ><span class="text-secondary">Home</span></router-link
+          >
         </v-list-item>
-        <v-list-item link>
-          <v-list-item-action>
-            <v-icon>mdi-contact-mail</v-icon>
-          </v-list-item-action>
-          <v-list-item-content>
-            <v-list-item-title>Contact</v-list-item-title>
-          </v-list-item-content>
+        <v-list-item link v-if="auth">
+          <i class="fas fa-user mr-3 text-success"></i>
+          <router-link to="/profile"
+            ><span class="text-secondary">Profile</span></router-link
+          >
         </v-list-item>
       </v-list>
     </v-navigation-drawer>

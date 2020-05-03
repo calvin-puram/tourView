@@ -1,5 +1,11 @@
 <template>
-  <v-carousel cycle height="500" hide-delimiter-background show-arrows-on-hover>
+  <v-carousel
+    cycle
+    height="500"
+    hide-delimiter-background
+    show-arrows-on-hover
+    id="carousel"
+  >
     <v-carousel-item
       v-for="(slide, i) in slides"
       :key="i"
@@ -58,6 +64,12 @@ export default {
 @media screen and (max-width: 768px) {
   h1.showcase-heading {
     display: none;
+  }
+}
+
+@media screen and (max-width: 408px) {
+  #carousel {
+    height: 300px !important;
   }
 }
 </style>

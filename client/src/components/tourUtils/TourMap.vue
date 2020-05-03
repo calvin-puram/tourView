@@ -40,7 +40,9 @@ export default {
       withPopup: [],
       currentZoom: 11.5,
       mapOptions: {
-        zoomSnap: 0.5
+        zoomSnap: 0.5,
+        dragging: false,
+        keyboard: false
       },
       showMap: true
     };

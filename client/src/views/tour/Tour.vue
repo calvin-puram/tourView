@@ -11,7 +11,7 @@
             align="center"
             justify="center"
           >
-            <h1 class="heading  ">{{ getOneTour.name }} Tour</h1>
+            <h1 class="heading header-title ">{{ getOneTour.name }} Tour</h1>
           </v-row>
         </v-img>
       </div>
@@ -20,7 +20,9 @@
         <div class="section-a row ">
           <div class="col-md-4 col-sm-12">
             <div>
-              <h2 class="text-center my-3 green--text heading">Quick Facts</h2>
+              <h3 class="text-center my-3 green--text heading">
+                Quick Facts
+              </h3>
               <div class="d-flex justify-space-between mb-2">
                 <span class="font-weight-medium">NEXT DATE</span>
                 <span>
@@ -76,9 +78,9 @@
             <div
               class="d-flex flex-column align-center justify-center ml-10 tour-description"
             >
-              <h2 class="green--text text-center my-2 heading">
+              <h3 class="green--text text-center my-2 heading ">
                 ABOUT {{ getOneTour.name.toUpperCase() }} TOUR
-              </h2>
+              </h3>
               <div
                 v-for="para in getOneTour.description.split('\n')"
                 :key="para"
@@ -144,8 +146,11 @@ export default {
   width: 100vw;
 }
 .heading {
-  font-size: 3rem;
+  font-size: 1.5rem;
   font-family: 'IBM Plex Serif', Arial;
+}
+.header-title {
+  font-size: 3rem;
 }
 
 .guides {

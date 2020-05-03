@@ -140,7 +140,7 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-width: 100vh;
+  width: 100%;
 }
 
 .main_wrapper {

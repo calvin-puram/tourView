@@ -1,9 +1,5 @@
 <template>
   <div>
-    <!-- HERO SECTION -->
-    <!-- <div v-if="loading">
-      <Spinner />
-    </div> -->
     <div v-if="Object.values(getOneTour).length > 0">
       <div class="image">
         <v-img
@@ -15,7 +11,7 @@
             align="center"
             justify="center"
           >
-            <h1 class="heading hidden-xs-only ">{{ getOneTour.name }} Tour</h1>
+            <h1 class="heading  ">{{ getOneTour.name }} Tour</h1>
           </v-row>
         </v-img>
       </div>
@@ -24,7 +20,7 @@
         <div class="section-a row ">
           <div class="col-md-4 col-sm-12">
             <div>
-              <h2 class="text-center my-3 green--text headline">Quick Facts</h2>
+              <h2 class="text-center my-3 green--text heading">Quick Facts</h2>
               <div class="d-flex justify-space-between mb-2">
                 <span class="font-weight-medium">NEXT DATE</span>
                 <span>
@@ -54,7 +50,7 @@
             <v-divider></v-divider>
             <!-- TOUR GUIDES -->
             <div class="guides">
-              <h2 class="text-center mb-2 green--text headline">
+              <h2 class="text-center mb-2 green--text heading">
                 YOUR TOUR GUIDES
               </h2>
               <div
@@ -80,7 +76,7 @@
             <div
               class="d-flex flex-column align-center justify-center ml-10 tour-description"
             >
-              <h2 class="green--text my-2 headline">
+              <h2 class="green--text text-center my-2 heading">
                 ABOUT {{ getOneTour.name.toUpperCase() }} TOUR
               </h2>
               <div
@@ -96,7 +92,9 @@
       <!-- TOUR DISPLAY -->
       <ImageDisplay />
       <!-- MAP -->
-      <TourMap :tour="getOneTour" />
+      <div class="map">
+        <TourMap :tour="getOneTour" />
+      </div>
 
       <!-- REVIEWS -->
 
@@ -159,8 +157,14 @@ export default {
 }
 
 @media screen and (max-width: 500px) {
-  .headline {
-    font-size: 1.3rem !important;
+  .heading {
+    font-size: 18px;
+  }
+  .v-image {
+    height: 50%;
+  }
+  .section-a {
+    padding: 0 10px;
   }
   p {
     font-size: 15px;

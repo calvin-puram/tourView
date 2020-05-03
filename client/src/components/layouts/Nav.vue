@@ -12,16 +12,16 @@
       </p>
 
       <v-list dense class="text-center mt-12 ml-12">
-        <v-list-item link class="mb-5">
-          <i class="fas fa-home mr-3 text-success"></i>
+        <v-list-item class="mb-5 ">
+          <i class="fas fa-home mr-3 text-success "></i>
           <router-link to="/"
-            ><span class="text-secondary">Home</span></router-link
+            ><span class="text-secondary link">Home</span></router-link
           >
         </v-list-item>
-        <v-list-item link v-if="auth">
+        <v-list-item v-if="auth">
           <i class="fas fa-user mr-3 text-success"></i>
           <router-link to="/profile"
-            ><span class="text-secondary">Profile</span></router-link
+            ><span class="text-secondary link">Profile</span></router-link
           >
         </v-list-item>
       </v-list>
@@ -154,6 +154,9 @@ export default {
   border: none;
 }
 
+.link:hover {
+  color: green !important;
+}
 .mobile-confirmaccount {
   display: none;
 }

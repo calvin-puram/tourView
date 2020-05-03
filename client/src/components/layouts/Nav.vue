@@ -71,9 +71,14 @@
       <!-- PROFILE -->
       <template>
         <div v-if="auth">
-          <router-link to="/profile">
+          <router-link to="/profile" v-if="setUser.photo === 'default.jpg'">
             <v-avatar class="mr-5">
-              <img :src="`/img/users/${setUser.photo}`" alt="user" />
+              <img src="/img/users/default.jpg" alt="user" />
+            </v-avatar>
+          </router-link>
+          <router-link to="/profile" v-else>
+            <v-avatar class="mr-5">
+              <img :src="setUser.photo" alt="user" />
             </v-avatar>
           </router-link>
         </div>

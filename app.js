@@ -3,6 +3,7 @@ const express = require('express');
 const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
 const rateLimit = require('express-rate-limit');
+const fileupload = require('express-fileupload');
 const helmet = require('helmet');
 const mongoSanitize = require('express-mongo-sanitize');
 const xss = require('xss-clean');
@@ -30,6 +31,13 @@ app.use(express.static(path.join(__dirname, './public')));
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('tiny'));
 }
+
+//file upload
+app.use(
+  fileupload({
+    useTempFiles: true
+  })
+);
 
 app.use(hpp());
 app.use(mongoSanitize());

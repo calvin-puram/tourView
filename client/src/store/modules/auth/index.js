@@ -112,7 +112,7 @@ const actions = {
       return res;
     } catch (err) {
       if (err && err.response) {
-        commit('login_error', err.response.data.msg);
+        commit('auth_error', err.response.data.msg);
       }
     }
   },
@@ -160,6 +160,7 @@ const mutations = {
   login_error(state, err) {
     state.errors = err;
   },
+
   logout(state) {
     state.token = null;
     state.user = null;

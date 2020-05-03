@@ -123,7 +123,7 @@ export default {
 
           this.$noty.success('tour added to favorite');
         } else {
-          this.$noty.error(this.favoriteErr);
+          // this.$noty.error(this.favoriteErr);
         }
       });
     }

@@ -45,14 +45,38 @@
               required
             ></v-text-field>
 
-            <v-btn color="success" class="my-4 " @click="updateUser">
-              <i class="fas fa-spin fa-spinner" v-if="loading"></i>
-              {{ loading ? '' : 'SAVE SETTINGS' }}
+            <v-btn color="success" class="mb-2" @click="updateUser">
+              <span v-if="loading">
+                Loading
+                <i class="fas fa-spin fa-spinner ml-2"></i>
+              </span>
+              <span v-else>Save Settings</span>
             </v-btn>
           </v-form>
-          <div class="my-5">
-            <Uploads />
-          </div>
+          <!-- upload  photo -->
+          <v-form
+            class="mb-4 mt-3"
+            ref="photoform"
+            v-model="valid"
+            enctype="multipart/form-data"
+            @submit.prevent="uploadFile"
+          >
+            <v-file-input
+              :rules="photoRules"
+              required
+              label="Upload  Photo"
+              show-size
+              v-model="file"
+            ></v-file-input>
+
+            <v-btn color="success" dark class="mt-1" @click="uploadFile">
+              <span v-if="photoLoading">
+                Loading
+                <i class="fas fa-spin fa-spinner ml-2"></i>
+              </span>
+              <span v-else>Upload Photo</span>
+            </v-btn>
+          </v-form>
         </div>
         <div class="mt-12 pb-5 main_profile">
           <!-- PASSWORD CHANGE -->
@@ -113,16 +137,13 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
-import Uploads from '@layouts/Uploads';
+import axios from 'axios';
 import formMixin from '@mixins/formMixin.js';
 export default {
-  components: {
-    Uploads
-  },
-  computed: mapGetters(['getProfile', 'getProfileErrors', 'getErrors']),
+  computed: mapGetters(['getErrors']),
   mixins: [formMixin],
   data: () => ({
-    file: '',
+    file: null,
     item: 1,
     items: [
       {
@@ -137,7 +158,11 @@ export default {
       },
       { text: 'My Bookings', icon: 'mdi-credit-card', route: 'bookings' }
     ],
-
+    photoRules: [
+      v => !!v || ' photo is required',
+      value =>
+        !value || value.size < 2000000 || 'photo size should be less than 2 MB!'
+    ],
     valid: true,
     name: '',
     nameRules: [
@@ -159,12 +184,32 @@ export default {
     show2: false,
 
     confirmPassword: '',
-    show3: false
+    show3: false,
+    photoLoading: false
   }),
   methods: {
-    ...mapActions(['updateProfiledetails', 'updateProfilePassword']),
-    OnfileChange(e) {
-      this.file = e.target.files[0];
+    ...mapActions([
+      'updateProfiledetails',
+      'updateProfilePassword',
+      'updateUsers'
+    ]),
+    uploadFile() {
+      if (this.$refs.photoform.validate()) {
+        this.photoLoading = true;
+        this.snackbar = true;
+
+        let formData = new FormData();
+
+        formData.append('file', this.file);
+        this.updateUsers(formData).then(res => {
+          this.photoLoading = false;
+          if (res && res.data.success) {
+            this.$noty.success('bootcamp image uploaded successfully!');
+          } else {
+            this.$noty.error(this.getErrors);
+          }
+        });
+      }
     },
     // UPDATE USER DETAILS ACTION
     updateUser() {
@@ -184,7 +229,7 @@ export default {
               'Authorization'
             ] = `Bearer ${res.data.token}`;
           } else {
-            this.$noty.error(this.getProfileErrors);
+            this.$noty.error(this.getErrors);
           }
         });
       }

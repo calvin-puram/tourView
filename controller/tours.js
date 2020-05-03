@@ -1,34 +1,7 @@
-const multer = require('multer');
 const AppError = require('../utils/appError');
 const catchAsync = require('../utils/catchAsync');
 const factory = require('./factoryHandler');
 const Tours = require('../models/Tours');
-
-const storage = multer.memoryStorage();
-const fileFilter = (req, file, cb) => {
-  if (!file) {
-    cb('please upload a file', false);
-  } else if (file.mimetype.startsWith('image')) {
-    cb(null, true);
-  } else {
-    cb(new AppError('not an image, Please upload only images', 400), false);
-  }
-};
-const upload = multer({
-  storage,
-  fileFilter
-});
-
-exports.uploadTourImages = upload.fields([
-  { name: 'imageCover', maxCount: 1 },
-  { name: 'images', maxCount: 3 }
-]);
-
-exports.checkFile = (req, res, next) => {
-  console.log(req.files);
-  next();
-};
-// uploads.array('images', 5);
 
 //@desc   Top Best Cheap Tours
 //@route  Get api/v1/tours/top5cheap

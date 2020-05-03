@@ -291,12 +291,14 @@ export default {
 
 @media only screen and (max-width: 768px) {
   .profile__sidebar {
-    background: red;
-    height: 100vh;
+    padding-top: 0;
   }
 
+  .profile__sidebar[data-v-ca123f88] {
+    min-height: 0;
+  }
   .main_profile {
-    margin: 17rem 10vw 2rem 10vw;
+    margin: 1rem 10vw 5rem 10vw;
   }
 }
 </style>

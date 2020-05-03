@@ -126,7 +126,6 @@ exports.forgotPassword = catchAsync(async (req, res, next) => {
       message: 'a reset password link has being sent to your mail'
     });
   } catch (err) {
-    console.log(err);
     user.passwordResetToken = undefined;
     user.passwordResetExpires = undefined;
     await user.save({ validateBeforeSave: false });

@@ -146,4 +146,13 @@ export default {
 .main_wrapper {
   margin-bottom: 30px;
 }
+
+@media screen and (max-width: 768px) {
+  .font-weight-medium {
+    font-size: 20px;
+  }
+  .font-weight-light {
+    font-size: 16px;
+  }
+}
 </style>

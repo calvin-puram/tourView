@@ -21,7 +21,11 @@ describe('tours.js', () => {
     await mongoose.connection.close();
   });
 
-  it('should return true', () => {
-    expect(true).toBeTruthy();
+  it('should return all tours document in the database', async () => {
+    const doc = await Tours.countDocuments();
+
+    const res = await request().get('/api/v1/tours');
+
+    expect(res.body.results).toBe(doc);
   });
 });

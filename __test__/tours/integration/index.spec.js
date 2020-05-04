@@ -28,4 +28,11 @@ describe('tours.js', () => {
 
     expect(res.body.results).toBe(doc);
   });
+
+  it('should return single tours', async () => {
+    const res = await request().get(`/api/v1/tours/the-northern-lights`);
+
+    expect(res.body.data).toBeDefined();
+    expect(res.body.data.name).toBe('The Northern Lights');
+  });
 });

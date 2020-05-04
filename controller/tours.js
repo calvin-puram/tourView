@@ -27,9 +27,10 @@ exports.getOneTour = catchAsync(async (req, res, next) => {
   });
 
   if (!tour) {
-    return next(
-      new AppError(`No Resource Found With slug: ${req.params.slug}`, 404)
-    );
+    return res.status(404).json({
+      success: false,
+      msg: `No Resource Found With slug: ${req.params.slug}`
+    });
   }
 
   res.status(200).json({

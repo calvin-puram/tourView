@@ -29,10 +29,22 @@ describe('tours.js', () => {
     expect(res.body.results).toBe(doc);
   });
 
-  it('should return single tours', async () => {
-    const res = await request().get(`/api/v1/tours/the-northern-lights`);
+  describe('single tour', () => {
+    it('should return single tours', async () => {
+      const res = await request().get(`/api/v1/tours/the-northern-lights`);
 
-    expect(res.body.data).toBeDefined();
-    expect(res.body.data.name).toBe('The Northern Lights');
+      expect(res.body.data).toBeDefined();
+      expect(res.body.data.name).toBe('The Northern Lights');
+    });
+
+    it('should throw error if slug is does not match', async () => {
+      const res = await request().get(`/api/v1/tours/the-northern-light`);
+
+      expect(res.body.msg).toBe(
+        'No Resource Found With slug: the-northern-light'
+      );
+      expect(res.status).toBe(404);
+      expect(res.body.success).toBeFalsy();
+    });
   });
 });

@@ -1,11 +1,7 @@
 # TourView Application
 
-> FullStack TourView application which is a tour directory.You can check out the postman documentation [GeoTours API](https://documenter.getpostman.com/view/5936515/SzKSRyTa)
+> FullStack TourView application which is a tour directory.built with Nodejs and Vuejs as a personal project
 
-## PROJECT ARCHITECTURE
-
-The development of this Application took into account several specific needs. It is carefully crafted as one that can easily require updates and new features, taking into account the need for scalability, easy maintainance, performance and security. I have chosen to use the MODEL-VIEW CONTROLLER (MVC)
-architecture.
 
 ## Usage
 

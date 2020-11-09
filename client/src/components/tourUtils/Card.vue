@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-row>
+    <v-row v-if="getTours.length > 0">
       <v-col cols="md-4 sm-6 xs-12" v-for="tour in getTours" :key="tour._id">
         <v-card class="mx-auto mb-5 " max-width="374">
           <v-img height="250" :src="`/img/tours/${tour.imageCover}`"></v-img>
@@ -55,7 +55,7 @@
               </div>
 
               <div>
-                <p>
+                <p v-if="tour.locations">
                   <v-icon left>mdi-map-search</v-icon>
                   {{ tour.locations.length !== 0 ? tour.locations.length : 0 }}
                   Stops

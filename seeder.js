@@ -26,9 +26,9 @@ const ReviewsData = JSON.parse(
 
 const importData = async () => {
   try {
-    await Tours.create(toursData);
+    // await Tours.create(toursData);
     await Users.create(UsersData);
-    await Reviews.create(ReviewsData);
+    // await Reviews.create(ReviewsData);
     console.log('data successfully imported');
     process.exit();
   } catch (err) {
@@ -37,9 +37,9 @@ const importData = async () => {
 };
 const deleteData = async () => {
   try {
-    await Tours.deleteMany();
+    // await Tours.deleteMany();
     await Users.deleteMany();
-    await Reviews.deleteMany();
+    // await Reviews.deleteMany();
     console.log('data successfully removed');
     process.exit();
   } catch (err) {

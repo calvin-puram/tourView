@@ -4,7 +4,7 @@
       <div class="col-lg-3  col-xs-12 profile__sidebar pt-10">
         <div>
           <div>
-            <v-list color="#f4f4f4" light flat>
+            <v-list color="#fff" light flat>
               <v-list-item-group v-model="item" color="#333">
                 <v-list-item
                   v-for="(item, i) in items"
@@ -266,7 +266,7 @@ export default {
 
 <style scoped>
 .profile__sidebar {
-  background: #f4f4f4;
+  background: #fff;
   min-height: 100vh;
 }
 .main_profile {

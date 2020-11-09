@@ -6,16 +6,16 @@ dotenv.config({ path: './.env' });
 
 const connectDB = async () => {
   try {
-    await mongoose.connect(process.env.MONGODB_URI, {
+    const conn = await mongoose.connect(process.env.MONGODB_URI, {
       useCreateIndex: true,
       useNewUrlParser: true,
       useFindAndModify: false,
       useUnifiedTopology: true
     });
 
-    // console.log(
-    //   chalk.yellowBright(`connected to DB on host: ${conn.connection.host}`)
-    // );
+    console.log(
+      chalk.yellowBright(`connected to DB on host: ${conn.connection.host}`)
+    );
   } catch (err) {
     console.log(chalk.red(`mongoDB error: ${err.message}`));
   }

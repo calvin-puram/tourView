@@ -25,7 +25,7 @@
 
 ## About DevCoach App
 
-<img src="./client/public/img/devCoachImg.png" alt="Logo" />
+<img src="./client/public/img/tourViewImg.png" alt="TourView" />
 
 TourView App was built to connect users to vacation spots round the world. A user can search for all tours, book tours, rate tours etc.
 

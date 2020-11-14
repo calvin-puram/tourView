@@ -96,6 +96,6 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 ## Contact
 
-Your Name - [@cpuram1](https://twitter.com/cpuram1) - puram.calvin@gmail.com
+Calvin Puram - [@cpuram1](https://twitter.com/cpuram1) - puram.calvin@gmail.com
 
 Project Live: [https://tourview.herokuapp.com/](https://tourview.herokuapp.com/)

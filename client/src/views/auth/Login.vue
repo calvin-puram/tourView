@@ -88,3 +88,9 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.container {
+  height: 80vh;
+}
+</style>

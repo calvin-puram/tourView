@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="cont">
     <v-container v-if="getBookings && !loading">
       <v-row v-if="getBookings.length > 0">
         <v-col
@@ -121,3 +121,8 @@ export default {
   }
 };
 </script>
+<style scoped>
+.cont {
+  height: 80vh;
+}
+</style>

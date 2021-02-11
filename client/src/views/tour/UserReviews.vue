@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="cont">
     <div class="container" v-if="getMyReviews && !loading">
       <div class="row">
         <div
@@ -103,3 +103,9 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.cont {
+  height: 80vh;
+}
+</style>

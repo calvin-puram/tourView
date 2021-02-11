@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="cont">
     <div v-if="loading">
       <Spinner />
     </div>
@@ -150,5 +150,8 @@ export default {
 <style scoped>
 .fas {
   cursor: pointer;
+}
+.cont {
+  height: 80vh;
 }
 </style>

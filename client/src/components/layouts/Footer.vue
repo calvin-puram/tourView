@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-footer app>
+    <v-footer>
       <img src="/img/logo-green-small.png" class="img" alt="mg" />
       <v-spacer></v-spacer>
       <span class="grey--text"

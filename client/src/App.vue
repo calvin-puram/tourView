@@ -25,6 +25,9 @@ export default {
 </script>
 
 <style>
+body {
+  font-family: 'Roboto', sans-serif;
+}
 a {
   text-decoration: none !important;
 }

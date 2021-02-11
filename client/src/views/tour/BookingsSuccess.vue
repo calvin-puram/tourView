@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="cont">
     <h1 class="text-center mt-5">Payment Success</h1>
   </div>
 </template>
@@ -28,3 +28,9 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.cont {
+  height: 80vh;
+}
+</style>
